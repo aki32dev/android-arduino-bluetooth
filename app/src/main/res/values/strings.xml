@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">Arduino Bluetooth</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="stringTab1">Home</string>
+    <string name="stringTab2">Control</string>
+    <string name="stringTab3">List</string>
+
+    <string name="stringPaired">Paired Devices</string>
+    <string name="stringConnect">Connect</string>
+
+    <string name="frag1">Fragment 1</string>
+    <string name="frag2">Fragment 2</string>
+    <string name="frag3">Fragment 3</string>
+</resources>
