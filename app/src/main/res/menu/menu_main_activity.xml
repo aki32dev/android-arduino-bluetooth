@@ -3,6 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_bluetooth"
-        android:icon="@drawable/ic_bluetooth_on"
+        android:icon="@drawable/ic_bluetooth"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/menu_setting"
+        android:icon="@drawable/ic_setting"
         app:showAsAction="always" />
 </menu>

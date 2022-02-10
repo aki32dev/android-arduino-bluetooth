@@ -9,20 +9,35 @@ import android.graphics.drawable.ColorDrawable
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.*
+import androidx.core.graphics.BlendModeColorFilterCompat
+import androidx.core.graphics.BlendModeCompat
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arduinobluetooth.adapter.PagerAdapter
 import com.example.arduinobluetooth.data.DataVar
 import com.example.arduinobluetooth.databinding.ActivityMainBinding
+import com.example.arduinobluetooth.model.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var binding : ActivityMainBinding
-
     private val bluetoothAdapter : BluetoothAdapter by lazy {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
     }
+
+    private lateinit var binding    : ActivityMainBinding
+    private lateinit var mainViewModel : MainViewModel
+
+    val messageStateChanged         : Int                   = 0
+    val messageRead                 : Int                   = 1
+    val messageWrite                : Int                   = 2
+    val messageDeviceName           : Int                   = 3
+    val messageToast                : Int                   = 4
+
+    var deviceName                  : String                = "deviceName"
+    var toast                       : String                = "toast"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,9 +46,11 @@ class MainActivity : AppCompatActivity() {
         setSubtitle("Not Connected")
         showTab()
 
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        subscribe()
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main_activity, menu)
         return super.onCreateOptionsMenu(menu)
     }
@@ -41,7 +58,11 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.menu_bluetooth -> {
-                showDialog()
+                bluetoothDialog()
+                true
+            }
+            R.id.menu_setting -> {
+                mainViewModel.getCurrentCount()
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -58,10 +79,16 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = resources.getString(DataVar.TAB_TITLES[position])
+            tab.setIcon(DataVar.TAB_ICONS[position])
+            tab.icon?.colorFilter =
+                BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
+                    Color.WHITE,
+                    BlendModeCompat.SRC_ATOP
+                )
         }.attach()
     }
 
-    private fun showDialog(){
+    private fun bluetoothDialog(){
         val dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         dialog.setContentView(R.layout.bottom_sheet)
@@ -89,4 +116,12 @@ class MainActivity : AppCompatActivity() {
         dialog.window!!.attributes.windowAnimations = R.style.DialogAnimation
         dialog.window!!.setGravity(Gravity.BOTTOM)
     }
+
+    private fun subscribe(){
+        val dataCount = Observer<Int?> { aInt ->
+            supportActionBar!!.subtitle = aInt.toString()
+        }
+        mainViewModel.getInitialCount().observe(this, dataCount)
+    }
+
 }

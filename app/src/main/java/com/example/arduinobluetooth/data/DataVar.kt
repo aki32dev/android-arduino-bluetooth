@@ -10,4 +10,10 @@ object DataVar {
         R.string.stringTab2,
         R.string.stringTab3
     )
+
+    val TAB_ICONS = intArrayOf(
+        R.drawable.ic_home,
+        R.drawable.ic_control,
+        R.drawable.ic_list
+    )
 }
