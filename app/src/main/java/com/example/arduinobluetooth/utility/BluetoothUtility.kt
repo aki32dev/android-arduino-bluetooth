@@ -6,35 +6,18 @@ import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
-import com.example.arduinobluetooth.MainActivity
+import com.example.arduinobluetooth.data.DataVar
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
-import java.util.*
 
 @SuppressLint("ServiceCast")
-class ClassicUtility(private val context : Context, private val handler : Handler){
-    private val bluetoothAdapter : BluetoothAdapter by lazy {
-        val bluetoothManager = getSystemService() as BluetoothManager
-        bluetoothManager.adapter
-    }
-
-    private fun getSystemService(): Any {
-        return "bluetooth"
-    }
-
-    var mainActivity                : MainActivity = MainActivity()
-
+class BluetoothUtility(private val context : Context, private val handler : Handler){
     /*===================================GLOBAL CLASS VARIABEL===================================*/
-    private val appUUID            : UUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
-    private val appName            : String            = "Arduino Bluetooth"
+    val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+    var bluetoothAdapter : BluetoothAdapter
 
-    val stateNone                  : Int               = 0
-    val stateListen                : Int               = 1
-    val stateConnecting            : Int               = 2
-    val stateConnected             : Int               = 3
-
-    var statenow                       : Int               = 0
+    var statenow                    : Int               = 0
     var isConnect                   : Boolean           = false
     var term                        : Boolean           = false
 
@@ -44,7 +27,8 @@ class ClassicUtility(private val context : Context, private val handler : Handle
 
     /*========================================CONSTRUCTOR========================================*/
     init {
-        statenow = stateNone
+        statenow = DataVar.stateNone
+        bluetoothAdapter = bluetoothManager.adapter
     }
 
     /*=========================================FUNCTION==========================================*/
@@ -54,7 +38,7 @@ class ClassicUtility(private val context : Context, private val handler : Handle
 
     fun setState(state : Int){
         this.statenow = state
-        handler.obtainMessage(mainActivity.messageStateChanged, state, -1).sendToTarget()
+        handler.obtainMessage(DataVar.messageStateChanged, state, -1).sendToTarget()
     }
 
     @Synchronized
@@ -71,7 +55,7 @@ class ClassicUtility(private val context : Context, private val handler : Handle
             connectedThread!!.cancel()
             connectedThread = null
         }
-        setState(stateListen)
+        setState(DataVar.stateListen)
     }
 
     @Synchronized
@@ -88,11 +72,11 @@ class ClassicUtility(private val context : Context, private val handler : Handle
             connectedThread!!.cancel()
             connectedThread = null
         }
-        setState(stateNone)
+        setState(DataVar.stateNone)
     }
 
     fun connect(device: BluetoothDevice) {
-        if (statenow == stateConnecting) {
+        if (statenow == DataVar.stateConnecting) {
             connectThread!!.cancel()
             connectThread = null
         }
@@ -103,15 +87,15 @@ class ClassicUtility(private val context : Context, private val handler : Handle
             connectedThread!!.cancel()
             connectedThread = null
         }
-        setState(stateConnecting)
+        setState(DataVar.stateConnecting)
     }
 
     /*==========================================SUPPORT==========================================*/
 
     private fun connectionLost() {
-        val message = handler.obtainMessage(mainActivity.messageToast)
+        val message = handler.obtainMessage(DataVar.messageToast)
         val bundle = Bundle()
-        bundle.putString(mainActivity.toast, "Koneksi terputus")
+        bundle.putString(DataVar.toast, "Koneksi terputus")
         message.data = bundle
         handler.sendMessage(message)
         term = false
@@ -121,9 +105,9 @@ class ClassicUtility(private val context : Context, private val handler : Handle
 
     @Synchronized
     private fun connectionFailed() {
-        val message = handler.obtainMessage(mainActivity.messageToast)
+        val message = handler.obtainMessage(DataVar.messageToast)
         val bundle = Bundle()
-        bundle.putString(mainActivity.toast, "Tidak dapat tersambung dengan perangkat")
+        bundle.putString(DataVar.toast, "Tidak dapat tersambung dengan perangkat")
         message.data = bundle
         handler.sendMessage(message)
         term = false
@@ -144,18 +128,18 @@ class ClassicUtility(private val context : Context, private val handler : Handle
         }
         connectedThread = ConnectedThread(socket)
         connectedThread!!.start()
-        val message = handler.obtainMessage(mainActivity.messageDeviceName)
+        val message = handler.obtainMessage(DataVar.messageDeviceName)
         val bundle = Bundle()
-        bundle.putString(mainActivity.deviceName, device.name)
+        bundle.putString(DataVar.deviceName, device.name)
         message.data = bundle
         handler.sendMessage(message)
-        setState(stateConnected)
+        setState(DataVar.stateConnected)
     }
 
     fun write(buffer: ByteArray?) {
         var connThread: ConnectedThread?
         synchronized(this) {
-            if (statenow != stateConnected) {
+            if (statenow != DataVar.stateConnected) {
                 return
             }
             connThread = connectedThread
@@ -171,7 +155,7 @@ class ClassicUtility(private val context : Context, private val handler : Handle
         init {
             var tmp : BluetoothServerSocket? = null
             try {
-                tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord(appName, appUUID)
+                tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord(DataVar.appName, DataVar.appUUID)
             }catch (e : IOException){
                 Log.e("Accept->Constructor", e.toString())
             }
@@ -192,8 +176,8 @@ class ClassicUtility(private val context : Context, private val handler : Handle
             }
             if (socket != null) {
                 when (statenow) {
-                    stateListen, stateConnecting -> connected(socket, socket.remoteDevice)
-                    stateNone, stateConnected -> try {
+                    DataVar.stateListen, DataVar.stateConnecting -> connected(socket, socket.remoteDevice)
+                    DataVar.stateNone, DataVar.stateConnected -> try {
                         socket.close()
                     } catch (e: IOException) {
                         Log.e("Accept->CloseSocket", e.toString())
@@ -218,7 +202,7 @@ class ClassicUtility(private val context : Context, private val handler : Handle
         init {
             var tmp: BluetoothSocket? = null
             try {
-                tmp = device.createRfcommSocketToServiceRecord(appUUID)
+                tmp = device.createRfcommSocketToServiceRecord(DataVar.appUUID)
             } catch (e: IOException) {
                 Log.e("Connect->Constructor", e.toString())
             }
@@ -239,7 +223,7 @@ class ClassicUtility(private val context : Context, private val handler : Handle
                 connectionFailed()
                 return
             }
-            synchronized(this@ClassicUtility) {
+            synchronized(this@BluetoothUtility) {
                 connectThread = null
             }
             connected(socket, device)
@@ -277,7 +261,7 @@ class ClassicUtility(private val context : Context, private val handler : Handle
             while (term) {
                 try {
                     bytes = inputStream!!.read(buffer)
-                    handler.obtainMessage(mainActivity.messageRead, bytes, -1, buffer)
+                    handler.obtainMessage(DataVar.messageRead, bytes, -1, buffer)
                         .sendToTarget()
                 } catch (e: IOException) {
                     connectionLost()
@@ -293,7 +277,7 @@ class ClassicUtility(private val context : Context, private val handler : Handle
         fun write(buffer: ByteArray?) {
             try {
                 outputStream!!.write(buffer)
-                handler.obtainMessage(mainActivity.messageWrite, -1, -1, buffer).sendToTarget()
+                handler.obtainMessage(DataVar.messageWrite, -1, -1, buffer).sendToTarget()
             } catch (e: IOException) {
             }
         }

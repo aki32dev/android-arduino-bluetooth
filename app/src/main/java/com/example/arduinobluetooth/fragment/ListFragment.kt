@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.arduinobluetooth.databinding.FragmentListBinding
 import com.example.arduinobluetooth.model.MainViewModel
@@ -26,7 +27,14 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        subscribe()
+    }
 
+    private fun subscribe(){
+        val dataCount = Observer<String?> { aString ->
+            binding.tvFrag3.text = aString.toString()
+        }
+        mainViewModel.getData().observe(viewLifecycleOwner, dataCount)
     }
 }

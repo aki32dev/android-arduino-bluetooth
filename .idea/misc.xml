@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/device_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_control.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_list.xml" value="0.20416666666666666" />

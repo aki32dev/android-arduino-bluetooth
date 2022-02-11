@@ -1,21 +1,17 @@
 package com.example.arduinobluetooth.model
 
-import android.os.SystemClock
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import java.util.*
 
 open class MainViewModel : ViewModel() {
-    private var clickCount : Int = 0
-    private var countLiveData= MutableLiveData<Int>()
+    private var stringData = MutableLiveData<String>()
 
-    open fun getInitialCount(): LiveData<Int> {
-        return countLiveData
+    open fun getData(): LiveData<String> {
+        return stringData
     }
 
-    open fun getCurrentCount(){
-        clickCount += 1
-        countLiveData.postValue(clickCount)
+    open fun setData(data : String){
+        stringData.postValue(data)
     }
 }
