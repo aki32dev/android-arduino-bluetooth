@@ -1,19 +1,21 @@
 package com.example.arduinobluetooth
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.*
 import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.os.Message
 import android.view.*
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.lifecycle.Observer
@@ -51,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         dialog = Dialog(this)
         getSupportActionBar()!!.setSubtitle("Not Connected")
         showTab()
-        bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
+        //bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         subscribe()
@@ -65,7 +67,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when(item.itemId){
             R.id.menu_bluetooth -> {
-                bluetoothDialog()
+                enableBluetooth()
                 true
             }
             R.id.menu_setting -> {
@@ -74,6 +76,27 @@ class MainActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == DataVar.bluetoothRequestPermit){
+            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                if(bluetoothUtility.isConnect){
+                    bluetoothUtility.stop()
+                }
+                else{
+                    bluetoothDialog();
+                }
+            }
+            else {
+                Toast.makeText(this, "Bluetooth permission required on Android 12+", Toast.LENGTH_SHORT).show()
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 
     private fun showTab(){
@@ -89,6 +112,33 @@ class MainActivity : AppCompatActivity() {
                     BlendModeCompat.SRC_ATOP
                 )
         }.attach()
+    }
+
+    private fun isBluetoothPermissionGranted() : Boolean {
+        return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED)
+    }
+
+    @SuppressLint("MissingPermission")
+    private fun enableBluetooth(){
+        if (!bluetoothAdapter.isEnabled) {
+            if (bluetoothAdapter.enable()){
+                Toast.makeText(this, "Turning on bluetooth", Toast.LENGTH_SHORT).show()
+            }
+        }
+        else {
+            if (isBluetoothPermissionGranted()) {
+                ActivityCompat.requestPermissions(this@MainActivity,
+                    arrayOf(Manifest.permission.BLUETOOTH_CONNECT), DataVar.bluetoothRequestPermit)
+            }
+            else{
+                if (bluetoothUtility.isConnect) {
+                    bluetoothUtility.stop()
+                }
+                else {
+                    bluetoothDialog()
+                }
+            }
+        }
     }
 
     private fun bluetoothDialog(){

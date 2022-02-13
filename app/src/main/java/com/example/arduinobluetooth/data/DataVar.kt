@@ -18,6 +18,8 @@ object DataVar {
         R.drawable.ic_list
     )
 
+    val bluetoothRequestPermit  : Int               = 101
+
     val messageStateChanged     : Int               = 0
     val messageRead             : Int               = 1
     val messageWrite            : Int               = 2
