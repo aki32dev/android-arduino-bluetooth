@@ -33,7 +33,7 @@ class ListFragment : Fragment() {
 
     private fun subscribe(){
         val dataCount = Observer<String?> { aString ->
-            binding.tvFrag3.text = aString.toString()
+            binding.tvEmpty.text = aString.toString()
         }
         mainViewModel.getData().observe(viewLifecycleOwner, dataCount)
     }

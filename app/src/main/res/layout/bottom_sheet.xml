@@ -10,7 +10,7 @@
         android:id="@+id/tvTitlePaired"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/stringPaired"
+        android:text="@string/stringTvPaired"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,7 +21,7 @@
         android:id="@+id/rvPaired"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        tools:listitem="@layout/device_list"
+        tools:listitem="@layout/rv_device_list"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTitlePaired"/>

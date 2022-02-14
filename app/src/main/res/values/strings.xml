@@ -1,14 +1,24 @@
 <resources>
+    <!-- SYSTEM -->
     <string name="app_name">Arduino Bluetooth</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="stringTvPaired">Paired Devices</string>
+    <string name="stringBtConnect">Connect</string>
+
+    <!-- TAB -->
     <string name="stringTab1">Home</string>
     <string name="stringTab2">Control</string>
     <string name="stringTab3">List</string>
 
-    <string name="stringPaired">Paired Devices</string>
-    <string name="stringConnect">Connect</string>
-
+    <!-- FRAGMENT 1 -->
     <string name="frag1">Fragment 1</string>
+
+
+    <!-- FRAGMENT 2 -->
     <string name="frag2">Fragment 2</string>
-    <string name="frag3">Fragment 3</string>
+
+
+    <!-- FRAGMENT 3 -->
+    <string name="stringTvEmptyList">No Data List</string>
+    <string name="stringBtAdd">Add</string>
+
 </resources>
