@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dialog = Dialog(this)
-        getSupportActionBar()!!.setSubtitle("Not Connected")
+        supportActionBar!!.setSubtitle("Not Connected")
         showTab()
         //bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
 
@@ -84,12 +84,12 @@ class MainActivity : AppCompatActivity() {
         grantResults: IntArray
     ) {
         if (requestCode == DataVar.bluetoothRequestPermit){
-            if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if(bluetoothUtility.isConnect){
                     bluetoothUtility.stop()
                 }
                 else{
-                    bluetoothDialog();
+                    bluetoothDialog()
                 }
             }
             else {
@@ -141,6 +141,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("MissingPermission")
     private fun bluetoothDialog(){
         dialog.setContentView(R.layout.bottom_sheet)
         dialog.window!!.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
@@ -164,7 +165,7 @@ class MainActivity : AppCompatActivity() {
         rvPaired.setHasFixedSize(true)
         val layoutManager = LinearLayoutManager(this)
         rvPaired.layoutManager = layoutManager
-        val adapter = RecyclerViewPairedAdapter(handlerBluetooth, dataName, dataMac);
+        val adapter = RecyclerViewPairedAdapter(handlerBluetooth, dataName, dataMac)
         rvPaired.adapter = adapter
     }
 
@@ -175,26 +176,26 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getData().observe(this, dataCount)
     }
 
-    val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
+    private val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when(msg.what){
                 DataVar.messageStateChanged     -> when(msg.arg1){
                     DataVar.stateNone       -> {
                         term = true
-                        getSupportActionBar()!!.setSubtitle("Not Connected")
+                        supportActionBar!!.setSubtitle("Not Connected")
                     }
                     DataVar.stateListen     -> {
                         term = false
-                        getSupportActionBar()!!.setSubtitle("Not Connected")
+                        supportActionBar!!.setSubtitle("Not Connected")
                     }
                     DataVar.stateConnecting -> {
                         term = false
-                        getSupportActionBar()!!.setSubtitle("Connecting...")
+                        supportActionBar!!.setSubtitle("Connecting...")
                     }
                     DataVar.stateConnected  -> {
                         term = false
                         dialog.dismiss()
-                        getSupportActionBar()!!.setSubtitle("Connected with " + connectedDevice)
+                        supportActionBar!!.setSubtitle("Connected with " + connectedDevice)
                     }
                 }
                 DataVar.messageWrite            -> {
@@ -214,7 +215,7 @@ class MainActivity : AppCompatActivity() {
                 DataVar.messageConnect            -> {
                     val name = msg.data.getString(DataVar.deviceName)
                     val mac = msg.data.getString(DataVar.deviceMac)
-                    Toast.makeText(this@MainActivity, "Connecting to " + name, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@MainActivity, "Connecting to $name", Toast.LENGTH_SHORT).show()
                     bluetoothUtility.connect(bluetoothAdapter.getRemoteDevice(mac))
                 }
             }

@@ -8,11 +8,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arduinobluetooth.R
+import com.example.arduinobluetooth.data.ItemData
 
 class RecyclerViewDataAdapter (
-    private val handler         : Handler,
-    private val inputDataName   : ArrayList<String>,
-    private val inputDataSend   : ArrayList<String>) : RecyclerView.Adapter<RecyclerViewDataAdapter.MyViewHolder>(){
+    private val handler     : Handler,
+    private val itemData    : ArrayList<ItemData>) : RecyclerView.Adapter<RecyclerViewDataAdapter.MyViewHolder>(){
 
     override fun onCreateViewHolder(parent  : ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.rv_data_list, parent, false)
@@ -23,7 +23,7 @@ class RecyclerViewDataAdapter (
 
     }
 
-    override fun getItemCount() : Int = inputDataName.size
+    override fun getItemCount() : Int = itemData.size
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         var tvDataName      : TextView = itemView.findViewById(R.id.tvDataName)

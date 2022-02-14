@@ -20,6 +20,10 @@ object DataVar {
 
     val bluetoothRequestPermit  : Int               = 101
 
+    val messageEdit             : Int               = 0
+    val messageDelete           : Int               = 1
+    val messageSend             : Int               = 2
+
     val messageStateChanged     : Int               = 0
     val messageRead             : Int               = 1
     val messageWrite            : Int               = 2

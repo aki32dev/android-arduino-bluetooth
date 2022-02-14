@@ -6,6 +6,8 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_arduino">#FF00878F</color>
     <color name="teal_700">#FF018786</color>
+    <color name="red_200">#FF3F3F</color>
     <color name="black">#FF000000</color>
+    <color name="lightgraytrans">#A8D8D8D8</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

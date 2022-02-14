@@ -11,11 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
+        android:elevation="3dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tabIndicatorAnimationMode="elastic"
         app:tabIndicatorColor="@color/white"
         app:tabIndicatorHeight="3dp"
-        app:tabIndicatorAnimationMode="elastic"
-        android:elevation="3dp"
-        app:tabTextColor="@color/white"/>
+        app:tabTextColor="@color/white" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"

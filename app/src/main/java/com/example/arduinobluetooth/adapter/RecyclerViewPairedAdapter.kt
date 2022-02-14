@@ -24,8 +24,8 @@ class RecyclerViewPairedAdapter(
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tvName.setText(inputName.get(position))
-        holder.tvMac.setText(inputMac.get(position))
+        holder.tvName.text = inputName.get(position)
+        holder.tvMac.text = inputMac.get(position)
 
         holder.btConnect.setOnClickListener { sendMessage(position) }
     }
@@ -41,9 +41,9 @@ class RecyclerViewPairedAdapter(
     private fun sendMessage(number : Int){
         val message: Message = handler.obtainMessage(DataVar.messageConnect)
         val bundle = Bundle()
-        bundle.putString(DataVar.deviceName, inputName.get(number))
-        bundle.putString(DataVar.deviceMac, inputMac.get(number))
-        message.setData(bundle)
+        bundle.putString(DataVar.deviceName, inputName[number])
+        bundle.putString(DataVar.deviceMac, inputMac[number])
+        message.data = bundle
         handler.sendMessage(message)
     }
 }

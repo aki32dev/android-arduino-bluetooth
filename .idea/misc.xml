@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_button.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_button_red.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_dialog.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/edit_background.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/ic_bluetooth.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/bottom_sheet.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/device_list.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/dialog_data.xml" value="0.25" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_control.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_list.xml" value="0.22" />

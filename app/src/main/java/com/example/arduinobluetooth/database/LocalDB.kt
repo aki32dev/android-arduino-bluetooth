@@ -16,22 +16,20 @@ class LocalDB(context : Context?) : SQLiteOpenHelper(context, "local.db", null, 
         DB!!.execSQL("drop Table if exists listitems")
     }
 
-    fun inputItem(name : String?, id : String?, code : String?, stock : String?): Boolean {
+    fun inputItem(name : String?, data : String?): Boolean {
         val DB = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put("id"  , id)
-        contentValues.put("code", code)
-        contentValues.put("name", name)
-        contentValues.put("stock", stock)
+        contentValues.put("name"  , name)
+        contentValues.put("data", data)
         val result = DB.insert("listitems", null, contentValues)
         return if (result == -1L) {false}
         else{true}
     }
     @SuppressLint("Recycle")
-    fun updateItem(name : String?, stock : String?): Boolean {
+    fun updateItem(name : String?, data : String?): Boolean {
         val DB = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put("stock", stock)
+        contentValues.put("data", data)
         val cursor = DB.rawQuery("Select * from listitems where name = ?", arrayOf(name))
         return if (cursor.count > 0) {
             val result = DB.update("listitems", contentValues, "name=?", arrayOf(name)).toString()
