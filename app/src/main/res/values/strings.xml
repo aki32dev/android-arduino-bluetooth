@@ -25,5 +25,7 @@
     <string name="stringItemData">Data</string>
     <string name="stringItemAction">Add/Update</string>
     <string name="stringItemDelete">Delete</string>
+    <string name="stringTitleNotValid">Type Title</string>
+    <string name="stringDataNotValid">Type Data</string>
 
 </resources>

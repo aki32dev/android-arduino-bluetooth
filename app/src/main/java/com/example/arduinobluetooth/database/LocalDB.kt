@@ -9,30 +9,31 @@ import android.database.sqlite.SQLiteOpenHelper
 
 class LocalDB(context : Context?) : SQLiteOpenHelper(context, "local.db", null, 1) {
     override fun onCreate(DB: SQLiteDatabase?) {
-        DB!!.execSQL("create Table listitems(name TEXT primary key, id TEXT, code TEXT, stock TEXT)")
+        DB!!.execSQL("create Table listitems(title TEXT primary key, data TEXT)")
     }
 
     override fun onUpgrade(DB: SQLiteDatabase?, p1: Int, p2: Int) {
         DB!!.execSQL("drop Table if exists listitems")
     }
 
-    fun inputItem(name : String?, data : String?): Boolean {
+    fun inputItem(title : String?, data : String?): Boolean {
         val DB = this.writableDatabase
         val contentValues = ContentValues()
-        contentValues.put("name"  , name)
+        contentValues.put("title"  , title)
         contentValues.put("data", data)
         val result = DB.insert("listitems", null, contentValues)
         return if (result == -1L) {false}
         else{true}
     }
+
     @SuppressLint("Recycle")
-    fun updateItem(name : String?, data : String?): Boolean {
+    fun updateItem(title : String?, data : String?): Boolean {
         val DB = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put("data", data)
-        val cursor = DB.rawQuery("Select * from listitems where name = ?", arrayOf(name))
+        val cursor = DB.rawQuery("Select * from listitems where title = ?", arrayOf(title))
         return if (cursor.count > 0) {
-            val result = DB.update("listitems", contentValues, "name=?", arrayOf(name)).toString()
+            val result = DB.update("listitems", contentValues, "title=?", arrayOf(title)).toString()
             if (result == "") {false}
             else {true}
         }
@@ -40,11 +41,11 @@ class LocalDB(context : Context?) : SQLiteOpenHelper(context, "local.db", null, 
     }
 
     @SuppressLint("Recycle")
-    fun deleteItem(name : String?): Boolean {
+    fun deleteItem(title : String?): Boolean {
         val DB = this.writableDatabase
-        val cursor = DB.rawQuery("Select * from listitems where name = ?", arrayOf(name))
+        val cursor = DB.rawQuery("Select * from listitems where title = ?", arrayOf(title))
         return if (cursor.count > 0) {
-            val result = DB.delete("listitems", "name=?", arrayOf(name)).toLong()
+            val result = DB.delete("listitems", "title=?", arrayOf(title)).toLong()
             if (result == -1L) {false}
             else {true}
         }

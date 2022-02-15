@@ -15,7 +15,7 @@
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_control.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_list.xml" value="0.22" />
-        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/rv_data_list.xml" value="0.25" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/rv_data_list.xml" value="0.33" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/rv_device_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/menu/menu_main_activity.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/ArduinoBluetooth/app/src/main/res/drawable/bg_button.xml" value="0.2203125" />
@@ -30,7 +30,7 @@
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="11" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

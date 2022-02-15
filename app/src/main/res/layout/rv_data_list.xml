@@ -8,16 +8,16 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="5dp">
+    app:cardElevation="2dp">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dp">
+        android:padding="12dp">
         <TextView
-            android:id="@+id/tvDataName"
+            android:id="@+id/tvDataTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -27,8 +27,8 @@
             android:id="@+id/tvDataSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            app:layout_constraintTop_toBottomOf="@id/tvDataName"
+            android:textSize="12sp"
+            app:layout_constraintTop_toBottomOf="@id/tvDataTitle"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="#REQ*" />
 
