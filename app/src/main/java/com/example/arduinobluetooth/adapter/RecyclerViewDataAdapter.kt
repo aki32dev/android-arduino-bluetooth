@@ -34,7 +34,7 @@ class RecyclerViewDataAdapter (
     override fun getItemCount() : Int = itemData.size
 
     class MyViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        var tvDataTitle      : TextView = itemView.findViewById(R.id.tvDataTitle)
+        var tvDataTitle     : TextView = itemView.findViewById(R.id.tvDataTitle)
         var tvDataSend      : TextView = itemView.findViewById(R.id.tvDataSend)
         var btDataEdit      : ImageView = itemView.findViewById(R.id.btDataEdit)
         var btDataDelete    : ImageView = itemView.findViewById(R.id.btDataDelete)

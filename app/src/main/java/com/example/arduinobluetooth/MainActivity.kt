@@ -46,17 +46,18 @@ class MainActivity : AppCompatActivity() {
     private var connectedDevice         : String                = ""
     private lateinit var dialog         : Dialog
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dialog = Dialog(this)
         supportActionBar!!.setSubtitle("Not Connected")
         showTab()
-        //bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
+        bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         subscribe()
+        sendSubscribe()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -176,7 +177,14 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getData().observe(this, dataCount)
     }
 
-    private val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
+    private fun sendSubscribe(){
+        val dataCount = Observer<String?> { aString ->
+            bluetoothUtility.write(aString.toByteArray())
+        }
+        mainViewModel.getSendData().observe(this, dataCount)
+    }
+
+    val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when(msg.what){
                 DataVar.messageStateChanged     -> when(msg.arg1){

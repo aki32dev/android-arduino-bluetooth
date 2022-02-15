@@ -8,7 +8,8 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="2dp">
+    app:cardElevation="2dp"
+    android:id="@+id/cvMain">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
