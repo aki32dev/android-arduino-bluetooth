@@ -5,16 +5,14 @@ import android.bluetooth.*
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import com.example.arduinobluetooth.data.DataVar
 import java.io.IOException
 import java.io.InputStream
 import java.io.OutputStream
 
 @SuppressLint("ServiceCast")
-class BluetoothUtility(private val context : Context, private val handler : Handler){
-    /*===================================GLOBAL CLASS VARIABEL===================================*/
-    val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
+class BluetoothUtility(context : Context, private val handler : Handler){
+    private val bluetoothManager = context.getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
     var bluetoothAdapter : BluetoothAdapter
 
     var statenow                    : Int               = 0
@@ -32,11 +30,11 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
     }
 
     /*=========================================FUNCTION==========================================*/
-    fun getState():Int{
-        return statenow
-    }
+//    fun getState():Int{
+//        return statenow
+//    }
 
-    fun setState(state : Int){
+    private fun setState(state : Int){
         this.statenow = state
         handler.obtainMessage(DataVar.messageStateChanged, state, -1).sendToTarget()
     }
@@ -95,7 +93,7 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
     private fun connectionLost() {
         val message = handler.obtainMessage(DataVar.messageToast)
         val bundle = Bundle()
-        bundle.putString(DataVar.toast, "Koneksi terputus")
+        bundle.putString(DataVar.toast, "Disconnected")
         message.data = bundle
         handler.sendMessage(message)
         term = false
@@ -107,7 +105,7 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
     private fun connectionFailed() {
         val message = handler.obtainMessage(DataVar.messageToast)
         val bundle = Bundle()
-        bundle.putString(DataVar.toast, "Tidak dapat tersambung dengan perangkat")
+        bundle.putString(DataVar.toast, "Unable to connect with device")
         message.data = bundle
         handler.sendMessage(message)
         term = false
@@ -157,7 +155,7 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
             try {
                 tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord(DataVar.appName, DataVar.appUUID)
             }catch (e : IOException){
-                Log.e("Accept->Constructor", e.toString())
+                //Log.e("Accept->Constructor", e.toString())
             }
             serverSocket = tmp
         }
@@ -167,11 +165,11 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
             try {
                 socket = serverSocket!!.accept()
             } catch (e : IOException){
-                Log.e("Accept->Run", e.toString())
+                //Log.e("Accept->Run", e.toString())
                 try {
                     serverSocket!!.close()
                 } catch (e1: IOException) {
-                    Log.e("Accept->Close", e.toString())
+                    //Log.e("Accept->Close", e.toString())
                 }
             }
             if (socket != null) {
@@ -180,7 +178,7 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
                     DataVar.stateNone, DataVar.stateConnected -> try {
                         socket.close()
                     } catch (e: IOException) {
-                        Log.e("Accept->CloseSocket", e.toString())
+                        //Log.e("Accept->CloseSocket", e.toString())
                     }
                 }
             }
@@ -190,7 +188,7 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
             try {
                 serverSocket!!.accept()
             }catch (e : IOException){
-                Log.e("Accept->CloseServer", e.toString())
+                //Log.e("Accept->CloseServer", e.toString())
             }
         }
     }
@@ -204,7 +202,7 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
             try {
                 tmp = device.createRfcommSocketToServiceRecord(DataVar.appUUID)
             } catch (e: IOException) {
-                Log.e("Connect->Constructor", e.toString())
+                //Log.e("Connect->Constructor", e.toString())
             }
             socket = tmp
         }
@@ -214,11 +212,11 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
             try {
                 socket!!.connect()
             } catch (e: IOException) {
-                Log.e("Connect->Run", e.toString())
+                //Log.e("Connect->Run", e.toString())
                 try {
                     socket!!.close()
                 } catch (e1: IOException) {
-                    Log.e("Connect->CloseSocket", e.toString())
+                    //Log.e("Connect->CloseSocket", e.toString())
                 }
                 connectionFailed()
                 return
@@ -233,7 +231,7 @@ class BluetoothUtility(private val context : Context, private val handler : Hand
             try {
                 socket!!.close()
             } catch (e: IOException) {
-                Log.e("Connect->Cancel", e.toString())
+                //Log.e("Connect->Cancel", e.toString())
             }
         }
     }

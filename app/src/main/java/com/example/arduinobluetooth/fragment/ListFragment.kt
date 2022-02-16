@@ -19,7 +19,6 @@ import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.arduinobluetooth.MainActivity
 import com.example.arduinobluetooth.R
 import com.example.arduinobluetooth.adapter.RecyclerViewDataAdapter
 import com.example.arduinobluetooth.data.DataVar
@@ -27,7 +26,6 @@ import com.example.arduinobluetooth.data.ItemData
 import com.example.arduinobluetooth.database.LocalDB
 import com.example.arduinobluetooth.databinding.FragmentListBinding
 import com.example.arduinobluetooth.model.MainViewModel
-import com.example.arduinobluetooth.utility.BluetoothUtility
 import kotlin.collections.ArrayList
 
 class ListFragment : Fragment() {

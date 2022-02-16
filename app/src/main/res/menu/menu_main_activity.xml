@@ -6,10 +6,12 @@
         android:id="@+id/menu_bluetooth"
         android:icon="@drawable/ic_bluetooth"
         app:showAsAction="always"
-        tools:ignore="AlwaysShowAction" />
+        tools:ignore="AlwaysShowAction"
+        android:title="@string/stringMenuBluetooth" />
     <item
         android:id="@+id/menu_setting"
         android:icon="@drawable/ic_setting"
         app:showAsAction="always"
-        tools:ignore="AlwaysShowAction" />
+        tools:ignore="AlwaysShowAction"
+        android:title="@string/stringMenuSetting" />
 </menu>

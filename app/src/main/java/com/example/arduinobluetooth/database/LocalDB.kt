@@ -8,52 +8,49 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
 class LocalDB(context : Context?) : SQLiteOpenHelper(context, "local.db", null, 1) {
-    override fun onCreate(DB: SQLiteDatabase?) {
-        DB!!.execSQL("create Table listitems(title TEXT primary key, data TEXT)")
+    override fun onCreate(database: SQLiteDatabase?) {
+        database!!.execSQL("create Table listitems(title TEXT primary key, data TEXT)")
     }
 
-    override fun onUpgrade(DB: SQLiteDatabase?, p1: Int, p2: Int) {
-        DB!!.execSQL("drop Table if exists listitems")
+    override fun onUpgrade(database: SQLiteDatabase?, p1: Int, p2: Int) {
+        database!!.execSQL("drop Table if exists listitems")
     }
 
     fun inputItem(title : String?, data : String?): Boolean {
-        val DB = this.writableDatabase
+        val database = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put("title"  , title)
         contentValues.put("data", data)
-        val result = DB.insert("listitems", null, contentValues)
-        return if (result == -1L) {false}
-        else{true}
+        val result = database.insert("listitems", null, contentValues)
+        return result != -1L
     }
 
     @SuppressLint("Recycle")
     fun updateItem(title : String?, data : String?): Boolean {
-        val DB = this.writableDatabase
+        val database = this.writableDatabase
         val contentValues = ContentValues()
         contentValues.put("data", data)
-        val cursor = DB.rawQuery("Select * from listitems where title = ?", arrayOf(title))
+        val cursor = database.rawQuery("Select * from listitems where title = ?", arrayOf(title))
         return if (cursor.count > 0) {
-            val result = DB.update("listitems", contentValues, "title=?", arrayOf(title)).toString()
-            if (result == "") {false}
-            else {true}
+            val result = database.update("listitems", contentValues, "title=?", arrayOf(title)).toString()
+            result != ""
         }
         else {false}
     }
 
     @SuppressLint("Recycle")
     fun deleteItem(title : String?): Boolean {
-        val DB = this.writableDatabase
-        val cursor = DB.rawQuery("Select * from listitems where title = ?", arrayOf(title))
+        val database = this.writableDatabase
+        val cursor = database.rawQuery("Select * from listitems where title = ?", arrayOf(title))
         return if (cursor.count > 0) {
-            val result = DB.delete("listitems", "title=?", arrayOf(title)).toLong()
-            if (result == -1L) {false}
-            else {true}
+            val result = database.delete("listitems", "title=?", arrayOf(title)).toLong()
+            result != -1L
         }
         else {false}
     }
 
     fun getItem(): Cursor {
-        val DB = this.writableDatabase
-        return DB.rawQuery("Select * from listitems", null)
+        val database = this.writableDatabase
+        return database.rawQuery("Select * from listitems", null)
     }
 }

@@ -51,9 +51,9 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         dialog = Dialog(this)
-        supportActionBar!!.setSubtitle("Not Connected")
+        setSubtitle(getString(R.string.stringNC))
         showTab()
-        bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
+        //bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         subscribe()
@@ -98,6 +98,10 @@ class MainActivity : AppCompatActivity() {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    private fun setSubtitle(title : CharSequence) {
+        supportActionBar!!.subtitle = title
     }
 
     private fun showTab(){
@@ -156,7 +160,7 @@ class MainActivity : AppCompatActivity() {
         val dataMac = ArrayList<String>()
         val pairedDevices : Set<BluetoothDevice> = bluetoothAdapter.bondedDevices
 
-        if(pairedDevices.size > 0){
+        if(pairedDevices.isNotEmpty()){
             for (device in pairedDevices) {
                 dataName.add(device.name)
                 dataMac.add(device.address)
@@ -184,26 +188,27 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getSendData().observe(this, dataCount)
     }
 
-    val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
+    private val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when(msg.what){
                 DataVar.messageStateChanged     -> when(msg.arg1){
                     DataVar.stateNone       -> {
                         term = true
-                        supportActionBar!!.setSubtitle("Not Connected")
+                        setSubtitle(getString(R.string.stringNC))
                     }
                     DataVar.stateListen     -> {
                         term = false
-                        supportActionBar!!.setSubtitle("Not Connected")
+                        setSubtitle(getString(R.string.stringNC))
                     }
                     DataVar.stateConnecting -> {
                         term = false
-                        supportActionBar!!.setSubtitle("Connecting...")
+                        setSubtitle(getString(R.string.stringCTI))
                     }
                     DataVar.stateConnected  -> {
                         term = false
                         dialog.dismiss()
-                        supportActionBar!!.setSubtitle("Connected with " + connectedDevice)
+                        val newText = this@MainActivity.resources.getString(R.string.stringCTD, connectedDevice)
+                        setSubtitle(newText)
                     }
                 }
                 DataVar.messageWrite            -> {

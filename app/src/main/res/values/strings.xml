@@ -3,6 +3,13 @@
     <string name="app_name">Arduino Bluetooth</string>
     <string name="stringTvPaired">Paired Devices</string>
     <string name="stringBtConnect">Connect</string>
+    <string name="stringNC">Not Connected</string>
+    <string name="stringCTI">Connecting…</string>
+    <string name="stringCTD">Connected With %s</string>
+
+    <!-- MENU -->
+    <string name="stringMenuBluetooth">Bluetooth</string>
+    <string name="stringMenuSetting">Setting</string>
 
     <!-- TAB -->
     <string name="stringTab1">Home</string>
