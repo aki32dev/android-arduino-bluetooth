@@ -5,14 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.arduinobluetooth.databinding.FragmentControlBinding
 import com.example.arduinobluetooth.model.MainViewModel
 
 class ControlFragment : Fragment() {
     private lateinit var mainViewModel: MainViewModel
-
     private var _binding: FragmentControlBinding? = null
     private val binding get() = _binding!!
 
@@ -26,15 +24,16 @@ class ControlFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        subscribe()
-    }
 
-    private fun subscribe(){
-        val dataCount = Observer<String?> { aString ->
-            binding.tvFrag2.text = aString.toString()
-        }
-        mainViewModel.getData().observe(viewLifecycleOwner, dataCount)
+        binding.btControlDown.setOnClickListener    { mainViewModel.setSendData("D") }
+        binding.btControlLeft.setOnClickListener    { mainViewModel.setSendData("L") }
+        binding.btControlUp.setOnClickListener      { mainViewModel.setSendData("U") }
+        binding.btControlRight.setOnClickListener   { mainViewModel.setSendData("R") }
+
+        binding.btControlOne.setOnClickListener     { mainViewModel.setSendData("1") }
+        binding.btControlTwo.setOnClickListener     { mainViewModel.setSendData("2") }
+        binding.btControlThree.setOnClickListener   { mainViewModel.setSendData("3") }
+        binding.btControlFour.setOnClickListener    { mainViewModel.setSendData("4") }
     }
 }

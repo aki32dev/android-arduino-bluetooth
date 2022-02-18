@@ -39,11 +39,11 @@ class RecyclerViewPairedAdapter(
     }
 
     private fun sendMessage(position : Int){
-        val message: Message = handler.obtainMessage(DataVar.messageConnect)
-        val bundle = Bundle()
+        val message: Message    = handler.obtainMessage(DataVar.messageConnect)
+        val bundle              = Bundle()
         bundle.putString(DataVar.deviceName, inputName[position])
         bundle.putString(DataVar.deviceMac, inputMac[position])
-        message.data = bundle
+        message.data            = bundle
         handler.sendMessage(message)
     }
 }

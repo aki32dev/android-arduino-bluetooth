@@ -16,7 +16,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arduinobluetooth.R
@@ -29,13 +28,13 @@ import com.example.arduinobluetooth.model.MainViewModel
 import kotlin.collections.ArrayList
 
 class ListFragment : Fragment() {
-    private lateinit var mainViewModel: MainViewModel
-    private var _binding: FragmentListBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var mainViewModel  : MainViewModel
+    private var _binding                : FragmentListBinding? = null
+    private val binding get()                                           = _binding!!
 
-    private var localDB : LocalDB? = null
-    private val list = ArrayList<ItemData>()
-    private lateinit var dialog : Dialog
+    private var localDB                 : LocalDB? = null
+    private val list                                                    = ArrayList<ItemData>()
+    private lateinit var dialog         : Dialog
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,48 +46,36 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog = Dialog(requireContext())
-        localDB = LocalDB(requireContext())
+        dialog          = Dialog(requireContext())
+        localDB         = LocalDB(requireContext())
 
-        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        subscribe()
+        mainViewModel   = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         list.addAll(readDB())
         showRecycler()
-
         binding.btAdd.setOnClickListener { addDialog("", "") }
     }
 
-    private fun subscribe(){
-        val dataCount = Observer<String?> { aString ->
-            binding.tvEmpty.text = aString.toString()
-        }
-        mainViewModel.getData().observe(viewLifecycleOwner, dataCount)
-    }
-
     private fun readDB() : ArrayList<ItemData>{
-        val res = localDB!!.getItem()
-        val dataList = ArrayList<ItemData>()
+        val res         = localDB!!.getItem()
+        val dataList    = ArrayList<ItemData>()
         if(res.count > 0){
             binding.tvEmpty.visibility = View.GONE
             while (res.moveToNext()) {
-                val dbTitle = res.getString(0)
-                val dbData = res.getString(1)
-
-                val itemData = ItemData(dbTitle, dbData)
+                val dbTitle     = res.getString(0)
+                val dbData      = res.getString(1)
+                val itemData    = ItemData(dbTitle, dbData)
                 dataList.add(itemData)
             }
         }
-        else{
-            binding.tvEmpty.visibility = View.VISIBLE
-        }
+        else{ binding.tvEmpty.visibility = View.VISIBLE }
         return dataList
     }
 
     private fun showRecycler(){
         binding.rvData.setHasFixedSize(true)
-        binding.rvData.layoutManager = LinearLayoutManager(context)
-        val itemAdapter = RecyclerViewDataAdapter(handlerData, list)
-        binding.rvData.adapter = itemAdapter
+        binding.rvData.layoutManager    = LinearLayoutManager(context)
+        val itemAdapter                 = RecyclerViewDataAdapter(handlerData, list)
+        binding.rvData.adapter          = itemAdapter
     }
 
     @SuppressLint("CheckResult")
@@ -108,14 +95,14 @@ class ListFragment : Fragment() {
         edTitle.setText(title)
         edData.setText(data)
 
-        btAddUpdate.setOnClickListener { addUpdateData(edTitle, edData) }
-        btDeleteItem.setOnClickListener { deleteData(edTitle) }
-        btCloseDialog.setOnClickListener { dialog.dismiss() }
+        btAddUpdate.setOnClickListener      { addUpdateData(edTitle, edData) }
+        btDeleteItem.setOnClickListener     { deleteData(edTitle) }
+        btCloseDialog.setOnClickListener    { dialog.dismiss() }
     }
 
     private fun addUpdateData(editTitle : EditText, editData : EditText) {
-        val title = editTitle.text.toString()
-        val data = editData.text.toString()
+        val title   = editTitle.text.toString()
+        val data    = editData.text.toString()
         if((title.isNotEmpty()) && (data.isNotEmpty())) {
             val stateAdd = localDB!!.inputItem(title, data)
             if(stateAdd){
@@ -137,12 +124,8 @@ class ListFragment : Fragment() {
             }
         }
         else {
-            if(title.isEmpty()){
-                editTitle.error = getString(R.string.stringTitleNotValid)
-            }
-            if (data.isEmpty()){
-                editData.error = getString(R.string.stringDataNotValid)
-            }
+            if(title.isEmpty()){ editTitle.error = getString(R.string.stringTitleNotValid) }
+            if(data.isEmpty()){ editData.error = getString(R.string.stringDataNotValid) }
         }
     }
 
@@ -157,14 +140,10 @@ class ListFragment : Fragment() {
                 showRecycler()
                 dialog.dismiss()
             }
-            else{
-                Toast.makeText(context, "Command does not exist", Toast.LENGTH_SHORT).show()
-            }
+            else{ Toast.makeText(context, "Command does not exist", Toast.LENGTH_SHORT).show() }
         }
         else {
-            if(title.isEmpty()){
-                editTitle.error = getString(R.string.stringTitleNotValid)
-            }
+            if(title.isEmpty()){ editTitle.error = getString(R.string.stringTitleNotValid) }
         }
     }
 
@@ -172,13 +151,13 @@ class ListFragment : Fragment() {
         override fun handleMessage(msg: Message) {
             when(msg.what){
                 DataVar.dbEdit     -> {
-                    val msgTitle = msg.data.getString(DataVar.dbTitle)
-                    val msgData = msg.data.getString(DataVar.dbData)
+                    val msgTitle    = msg.data.getString(DataVar.dbTitle)
+                    val msgData     = msg.data.getString(DataVar.dbData)
                     addDialog(msgTitle, msgData)
                 }
                 DataVar.dbDelete   -> {
-                    val msgTitle = msg.data.getString(DataVar.dbTitle)
-                    //val msgData = msg.data.getString(DataVar.dbData)
+                    val msgTitle    = msg.data.getString(DataVar.dbTitle)
+                    //val msgData   = msg.data.getString(DataVar.dbData)
                     val stateDelete = localDB!!.deleteItem(msgTitle)
                     if(stateDelete){
                         Toast.makeText(context, "Command deleted", Toast.LENGTH_SHORT).show()
@@ -188,8 +167,8 @@ class ListFragment : Fragment() {
                     }
                 }
                 DataVar.dbSend     -> {
-                    //val msgTitle = msg.data.getString(DataVar.dbTitle)
-                    val msgData = msg.data.getString(DataVar.dbData)
+                    //val msgTitle  = msg.data.getString(DataVar.dbTitle)
+                    val msgData     = msg.data.getString(DataVar.dbData)
                     mainViewModel.setSendData(msgData.toString())
                 }
             }

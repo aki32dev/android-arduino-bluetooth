@@ -22,13 +22,13 @@ class RecyclerViewDataAdapter (
         return MyViewHolder(itemView)
     }
 
-    override fun onBindViewHolder(holder : MyViewHolder, position: Int) {
-        val (title, data) = itemData[position]
+    override fun onBindViewHolder(holder : MyViewHolder, position: Int){
+        val (title, data)       = itemData[position]
         holder.tvDataTitle.text = title
-        holder.tvDataSend.text = data
-        holder.btDataEdit.setOnClickListener { actionDb(DataVar.dbEdit, title, data) }
-        holder.btDataDelete.setOnClickListener { actionDb(DataVar.dbDelete, title, data) }
-        holder.btDataSend.setOnClickListener { actionDb(DataVar.dbSend, title, data) }
+        holder.tvDataSend.text  = data
+        holder.btDataEdit.setOnClickListener    { actionDb(DataVar.dbEdit,      title, data) }
+        holder.btDataDelete.setOnClickListener  { actionDb(DataVar.dbDelete,    title, data) }
+        holder.btDataSend.setOnClickListener    { actionDb(DataVar.dbSend,      title, data) }
     }
 
     override fun getItemCount() : Int = itemData.size
@@ -42,11 +42,11 @@ class RecyclerViewDataAdapter (
     }
 
     private fun actionDb(address : Int, title : String?, data : String?){
-        val message: Message = handler.obtainMessage(address)
-        val bundle = Bundle()
+        val message : Message                       = handler.obtainMessage(address)
+        val bundle                                  = Bundle()
         bundle.putString(DataVar.dbTitle, title)
         bundle.putString(DataVar.dbData, data)
-        message.data = bundle
+        message.data                                = bundle
         handler.sendMessage(message)
     }
 }

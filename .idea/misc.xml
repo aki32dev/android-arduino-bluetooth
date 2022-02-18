@@ -5,8 +5,12 @@
       <map>
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_button.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_button_circle.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_button_red.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_dialog.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_receiver_rounded.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/bg_sender_rounded.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/ed_background.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/edit_background.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/ic_bluetooth.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/ic_close.xml" value="0.137" />
@@ -18,13 +22,17 @@
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/ic_list.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/ic_send.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/ic_setting.xml" value="0.137" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/drawable/message_other.xml" value="0.137" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/asdasdas.xml" value="0.25" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/bottom_sheet.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/device_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/dialog_data.xml" value="0.25" />
-        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_control.xml" value="0.20416666666666666" />
-        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_home.xml" value="0.20416666666666666" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_control.xml" value="0.22" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_home.xml" value="0.22" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/fragment_list.xml" value="0.22" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/message_other.xml" value="0.5" />
+        <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/message_self.xml" value="0.25" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/rv_data_list.xml" value="0.33" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/layout/rv_device_list.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/RND-64/AndroidStudioProjects/Arduino-Bluetooth/app/src/main/res/menu/menu_main_activity.xml" value="0.20416666666666666" />

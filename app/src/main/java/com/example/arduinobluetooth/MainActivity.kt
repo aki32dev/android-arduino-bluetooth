@@ -7,13 +7,15 @@ import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothManager
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.*
-import androidx.appcompat.app.AppCompatActivity
+import android.provider.Settings.ACTION_BLUETOOTH_SETTINGS
 import android.view.*
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.BlendModeColorFilterCompat
@@ -42,7 +44,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding        : ActivityMainBinding
     private lateinit var mainViewModel  : MainViewModel
 
-    private var term                    : Boolean               = true
     private var connectedDevice         : String                = ""
     private lateinit var dialog         : Dialog
 
@@ -53,10 +54,10 @@ class MainActivity : AppCompatActivity() {
         dialog = Dialog(this)
         setSubtitle(getString(R.string.stringNC))
         showTab()
-        //bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
+        bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        subscribe()
+        //subscribe()
         sendSubscribe()
     }
 
@@ -72,7 +73,7 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             R.id.menu_setting -> {
-                mainViewModel.setData("HALLO")
+                startActivity(Intent(ACTION_BLUETOOTH_SETTINGS))
                 true
             }
             else -> super.onOptionsItemSelected(item)
@@ -80,8 +81,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
+        requestCode : Int,
+        permissions : Array<out String>,
         grantResults: IntArray
     ) {
         if (requestCode == DataVar.bluetoothRequestPermit){
@@ -174,12 +175,12 @@ class MainActivity : AppCompatActivity() {
         rvPaired.adapter = adapter
     }
 
-    private fun subscribe(){
-        val dataCount = Observer<String?> { aString ->
-            supportActionBar!!.subtitle = aString
-        }
-        mainViewModel.getData().observe(this, dataCount)
-    }
+//    private fun subscribe(){
+//        val dataCount = Observer<String?> { aString ->
+//            supportActionBar!!.subtitle = aString
+//        }
+//        mainViewModel.getData().observe(this, dataCount)
+//    }
 
     private fun sendSubscribe(){
         val dataCount = Observer<String?> { aString ->
@@ -193,19 +194,19 @@ class MainActivity : AppCompatActivity() {
             when(msg.what){
                 DataVar.messageStateChanged     -> when(msg.arg1){
                     DataVar.stateNone       -> {
-                        term = true
+                        mainViewModel.setState(false)
                         setSubtitle(getString(R.string.stringNC))
                     }
                     DataVar.stateListen     -> {
-                        term = false
+                        mainViewModel.setState(false)
                         setSubtitle(getString(R.string.stringNC))
                     }
                     DataVar.stateConnecting -> {
-                        term = false
+                        mainViewModel.setState(false)
                         setSubtitle(getString(R.string.stringCTI))
                     }
                     DataVar.stateConnected  -> {
-                        term = false
+                        mainViewModel.setState(true)
                         dialog.dismiss()
                         val newText = this@MainActivity.resources.getString(R.string.stringCTD, connectedDevice)
                         setSubtitle(newText)

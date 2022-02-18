@@ -8,9 +8,7 @@ import com.example.arduinobluetooth.fragment.HomeFragment
 import com.example.arduinobluetooth.fragment.ListFragment
 
 class PagerAdapter(activity : AppCompatActivity) : FragmentStateAdapter(activity) {
-    override fun getItemCount(): Int {
-        return 3
-    }
+    override fun getItemCount(): Int { return 3 }
 
     override fun createFragment(position: Int): Fragment {
         var fragment : Fragment? = null

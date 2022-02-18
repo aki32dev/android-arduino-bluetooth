@@ -5,19 +5,19 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 open class MainViewModel : ViewModel() {
-    private var stringData = MutableLiveData<String>()
-    private var sendData = MutableLiveData<String>()
+    private var stateConnect    = MutableLiveData<Boolean>()
+    private var sendData        = MutableLiveData<String>()
 
-    open fun getData(): LiveData<String> {
-        return stringData
+    open fun setState(state : Boolean){
+        stateConnect.postValue(state)
+    }
+
+    open fun getState(): LiveData<Boolean> {
+        return stateConnect
     }
 
     open fun getSendData(): LiveData<String> {
         return sendData
-    }
-
-    open fun setData(data : String){
-        stringData.postValue(data)
     }
 
     open fun setSendData(data : String){

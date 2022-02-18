@@ -1,20 +1,28 @@
 package com.example.arduinobluetooth.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.arduinobluetooth.R
+import com.example.arduinobluetooth.adapter.RecyclerViewMessageAdapter
 import com.example.arduinobluetooth.databinding.FragmentHomeBinding
 import com.example.arduinobluetooth.model.MainViewModel
+import com.example.arduinobluetooth.model.MessageModel
+import kotlin.collections.ArrayList
+
 
 class HomeFragment : Fragment() {
-    private lateinit var mainViewModel: MainViewModel
+    private lateinit var mainViewModel  : MainViewModel
+    private var _binding                : FragmentHomeBinding?      = null
+    private val binding get()                                       = _binding!!
 
-    private var _binding: FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val messagesList            : ArrayList<MessageModel>   = ArrayList()
+    private var stateConnect            : Boolean                   = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,13 +36,36 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
-        subscribe()
+        liveState()
+
+        binding.btSendMessage.setOnClickListener {
+            val dataMessage = binding.edMessage.text.toString()
+            if(dataMessage.isNotEmpty()) {
+                if (stateConnect){
+                    sendData(dataMessage)
+                    mainViewModel.setSendData(dataMessage)
+                }
+            }
+            else{ binding.edMessage.error = getString(R.string.stringDataNotValid) }
+        }
     }
 
-    private fun subscribe(){
-        val dataCount = Observer<String?> { aString ->
-            binding.tvFrag1.text = aString.toString()
+    private fun updateRv(){
+        val adapter                     = RecyclerViewMessageAdapter(requireActivity(), messagesList)
+        binding.rvMessage.layoutManager = LinearLayoutManager(context)
+        binding.rvMessage.adapter       = adapter
+        binding.rvMessage.scrollToPosition(adapter.itemCount - 1)
+    }
+
+    private fun sendData(data : String){
+        messagesList.add(MessageModel(data, RecyclerViewMessageAdapter.MESSAGE_TYPE_OUT))
+        updateRv()
+    }
+
+    private fun liveState(){
+        val liveObs = Observer<Boolean?> { aBoolean ->
+            stateConnect = aBoolean
         }
-        mainViewModel.getData().observe(viewLifecycleOwner, dataCount)
+        mainViewModel.getState().observe(viewLifecycleOwner, liveObs)
     }
 }

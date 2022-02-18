@@ -18,6 +18,7 @@
 
     <!-- FRAGMENT 1 -->
     <string name="frag1">Fragment 1</string>
+    <string name="stringHint">Type Here</string>
 
 
     <!-- FRAGMENT 2 -->
