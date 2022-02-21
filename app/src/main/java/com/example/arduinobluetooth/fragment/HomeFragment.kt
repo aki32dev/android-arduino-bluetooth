@@ -37,6 +37,7 @@ class HomeFragment : Fragment() {
 
         mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
         liveState()
+        liveReceive()
 
         binding.btSendMessage.setOnClickListener {
             val dataMessage = binding.edMessage.text.toString()
@@ -47,6 +48,11 @@ class HomeFragment : Fragment() {
                 }
             }
             else{ binding.edMessage.error = getString(R.string.stringDataNotValid) }
+        }
+
+        binding.btDeleteMessage.setOnClickListener {
+            messagesList.clear()
+            updateRv()
         }
     }
 
@@ -62,10 +68,22 @@ class HomeFragment : Fragment() {
         updateRv()
     }
 
+    private fun receiveData(data : String){
+        messagesList.add(MessageModel(data, RecyclerViewMessageAdapter.MESSAGE_TYPE_IN))
+        updateRv()
+    }
+
     private fun liveState(){
         val liveObs = Observer<Boolean?> { aBoolean ->
             stateConnect = aBoolean
         }
         mainViewModel.getState().observe(viewLifecycleOwner, liveObs)
+    }
+
+    private fun liveReceive(){
+        val liveObs = Observer<String?> { aString ->
+            receiveData(aString)
+        }
+        mainViewModel.getReceiveData().observe(viewLifecycleOwner, liveObs)
     }
 }

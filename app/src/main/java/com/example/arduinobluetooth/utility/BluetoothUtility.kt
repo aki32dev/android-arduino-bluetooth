@@ -259,13 +259,12 @@ class BluetoothUtility(context : Context, private val handler : Handler){
             while (term) {
                 try {
                     bytes = inputStream!!.read(buffer)
-                    handler.obtainMessage(DataVar.messageRead, bytes, -1, buffer)
-                        .sendToTarget()
+                    handler.obtainMessage(DataVar.messageRead, bytes, -1, buffer).sendToTarget()
                 } catch (e: IOException) {
                     connectionLost()
                 }
                 try {
-                    sleep(200)
+                    sleep(150)
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }

@@ -30,16 +30,17 @@
             android:id="@+id/edMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingBottom="12dp"
-            android:paddingTop="12dp"
+            android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
             android:background="@drawable/ed_background"
             android:hint="@string/stringHint"
             android:paddingLeft="14dp"
+            android:paddingTop="12dp"
             android:paddingRight="14dp"
+            android:paddingBottom="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btSendMessage"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btDeleteMessage"
             app:layout_constraintTop_toTopOf="parent"
             tools:ignore="TextFields" />
 
@@ -52,6 +53,19 @@
             app:elevation="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@null"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btDeleteMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/red_200"
+            android:src="@drawable/ic_delete_message"
+            app:elevation="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@null"
             tools:ignore="ContentDescription" />

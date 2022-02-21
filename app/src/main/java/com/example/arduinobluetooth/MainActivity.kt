@@ -31,6 +31,10 @@ import com.example.arduinobluetooth.databinding.ActivityMainBinding
 import com.example.arduinobluetooth.model.MainViewModel
 import com.example.arduinobluetooth.utility.BluetoothUtility
 import com.google.android.material.tabs.TabLayoutMediator
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -44,8 +48,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding        : ActivityMainBinding
     private lateinit var mainViewModel  : MainViewModel
 
+    private var dataString              : String                = ""
     private var connectedDevice         : String                = ""
     private lateinit var dialog         : Dialog
+
+    var backPressedTime: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -99,6 +106,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
+    override fun onBackPressed() {
+        if (backPressedTime + 2000 > System.currentTimeMillis()) {
+            super.onBackPressed()
+            bluetoothUtility.stop()
+            finish()
+        } else {
+            Toast.makeText(this, "Press back again to leave the app.", Toast.LENGTH_SHORT).show()
+        }
+        backPressedTime = System.currentTimeMillis()
     }
 
     private fun setSubtitle(title : CharSequence) {
@@ -216,8 +234,16 @@ class MainActivity : AppCompatActivity() {
 //                    var buffer1 : ByteArray? = msg.obj as ByteArray
                 }
                 DataVar.messageRead             -> {
-//                    val buffer = msg.obj as ByteArray
-//                    var inputBuffer = String(buffer, 0, msg.arg1)
+                    val buffer = msg.obj as ByteArray
+                    val inputBuffer = String(buffer, 0, msg.arg1)
+                    dataString += inputBuffer
+                    CoroutineScope(Dispatchers.Default).launch {
+                        delay(450)
+                        if(dataString.isNotEmpty()){
+                            mainViewModel.setReceiveData(dataString)
+                            dataString = ""
+                        }
+                    }
                 }
                 DataVar.messageDeviceName       -> {
                     connectedDevice = msg.data.getString(DataVar.deviceName)!!
