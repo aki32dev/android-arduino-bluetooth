@@ -20,7 +20,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.arduinobluetooth.R
 import com.example.arduinobluetooth.adapter.RecyclerViewDataAdapter
-import com.example.arduinobluetooth.data.DataVar
+import com.example.arduinobluetooth.data.Constants
 import com.example.arduinobluetooth.data.ItemData
 import com.example.arduinobluetooth.database.LocalDB
 import com.example.arduinobluetooth.databinding.FragmentListBinding
@@ -150,13 +150,13 @@ class ListFragment : Fragment() {
     private val handlerData = object:  Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when(msg.what){
-                DataVar.dbEdit     -> {
-                    val msgTitle    = msg.data.getString(DataVar.dbTitle)
-                    val msgData     = msg.data.getString(DataVar.dbData)
+                Constants.dbEdit     -> {
+                    val msgTitle    = msg.data.getString(Constants.dbTitle)
+                    val msgData     = msg.data.getString(Constants.dbData)
                     addDialog(msgTitle, msgData)
                 }
-                DataVar.dbDelete   -> {
-                    val msgTitle    = msg.data.getString(DataVar.dbTitle)
+                Constants.dbDelete   -> {
+                    val msgTitle    = msg.data.getString(Constants.dbTitle)
                     //val msgData   = msg.data.getString(DataVar.dbData)
                     val stateDelete = localDB!!.deleteItem(msgTitle)
                     if(stateDelete){
@@ -166,9 +166,9 @@ class ListFragment : Fragment() {
                         showRecycler()
                     }
                 }
-                DataVar.dbSend     -> {
+                Constants.dbSend     -> {
                     //val msgTitle  = msg.data.getString(DataVar.dbTitle)
-                    val msgData     = msg.data.getString(DataVar.dbData)
+                    val msgData     = msg.data.getString(Constants.dbData)
                     mainViewModel.setSendData(msgData.toString())
                 }
             }

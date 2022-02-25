@@ -10,7 +10,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arduinobluetooth.R
-import com.example.arduinobluetooth.data.DataVar
+import com.example.arduinobluetooth.data.Constants
 
 
 class RecyclerViewPairedAdapter(
@@ -39,10 +39,10 @@ class RecyclerViewPairedAdapter(
     }
 
     private fun sendMessage(position : Int){
-        val message: Message    = handler.obtainMessage(DataVar.messageConnect)
+        val message: Message    = handler.obtainMessage(Constants.messageConnect)
         val bundle              = Bundle()
-        bundle.putString(DataVar.deviceName, inputName[position])
-        bundle.putString(DataVar.deviceMac, inputMac[position])
+        bundle.putString(Constants.deviceName, inputName[position])
+        bundle.putString(Constants.deviceMac, inputMac[position])
         message.data            = bundle
         handler.sendMessage(message)
     }

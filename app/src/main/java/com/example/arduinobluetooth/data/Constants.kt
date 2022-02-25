@@ -2,9 +2,8 @@ package com.example.arduinobluetooth.data
 
 import androidx.annotation.StringRes
 import com.example.arduinobluetooth.R
-import java.util.*
 
-object DataVar {
+object Constants {
     @StringRes
     val TAB_TITLES = intArrayOf(
         R.string.stringTab1,
@@ -29,14 +28,13 @@ object DataVar {
     const val messageStateChanged       : Int               = 0
     const val messageRead               : Int               = 1
     const val messageWrite              : Int               = 2
-    const val messageDeviceName         : Int               = 3
-    const val messageToast              : Int               = 4
-    const val messageConnect            : Int               = 5
+    const val messageConnect            : Int               = 3
+    const val messageDeviceName         : Int               = 5
+    const val messageToast              : Int               = 6
+    const val messageString             : String            = "messageString"
     const val deviceName                : String            = "deviceName"
     const val deviceMac                 : String            = "deviceMac"
-    const val toast                     : String            = "toast"
 
-    val appUUID                         : UUID              = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
     const val appName                   : String            = "Arduino Bluetooth"
 
     const val stateNone                 : Int               = 0

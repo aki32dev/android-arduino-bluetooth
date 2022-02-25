@@ -2,6 +2,7 @@ package com.example.arduinobluetooth
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.Dialog
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
@@ -15,6 +16,7 @@ import android.os.*
 import android.provider.Settings.ACTION_BLUETOOTH_SETTINGS
 import android.view.*
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -26,7 +28,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arduinobluetooth.adapter.PagerAdapter
 import com.example.arduinobluetooth.adapter.RecyclerViewPairedAdapter
-import com.example.arduinobluetooth.data.DataVar
+import com.example.arduinobluetooth.data.Constants
 import com.example.arduinobluetooth.databinding.ActivityMainBinding
 import com.example.arduinobluetooth.model.MainViewModel
 import com.example.arduinobluetooth.utility.BluetoothUtility
@@ -52,7 +54,7 @@ class MainActivity : AppCompatActivity() {
     private var connectedDevice         : String                = ""
     private lateinit var dialog         : Dialog
 
-    var backPressedTime: Long = 0
+    private var backPressedTime         : Long                  = 0
 
     override fun onCreate(savedInstanceState: Bundle?){
         super.onCreate(savedInstanceState)
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
         dialog = Dialog(this)
         setSubtitle(getString(R.string.stringNC))
         showTab()
-        bluetoothUtility = BluetoothUtility(this, handlerBluetooth)
+        bluetoothUtility = BluetoothUtility(handlerBluetooth)
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
         //subscribe()
@@ -79,7 +81,7 @@ class MainActivity : AppCompatActivity() {
                 enableBluetooth()
                 true
             }
-            R.id.menu_setting -> {
+            R.id.menu_setting   -> {
                 startActivity(Intent(ACTION_BLUETOOTH_SETTINGS))
                 true
             }
@@ -92,16 +94,14 @@ class MainActivity : AppCompatActivity() {
         permissions : Array<out String>,
         grantResults: IntArray
     ) {
-        if (requestCode == DataVar.bluetoothRequestPermit){
+        if (requestCode == Constants.bluetoothRequestPermit){
             if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 if(bluetoothUtility.isConnect){
                     bluetoothUtility.stop()
-                }
-                else{
+                } else{
                     bluetoothDialog()
                 }
-            }
-            else {
+            } else {
                 Toast.makeText(this, "Bluetooth permission required on Android 12+", Toast.LENGTH_SHORT).show()
             }
         }
@@ -128,8 +128,8 @@ class MainActivity : AppCompatActivity() {
         val pagerAdapter = PagerAdapter(this)
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
-            tab.text = resources.getString(DataVar.TAB_TITLES[position])
-            tab.setIcon(DataVar.TAB_ICONS[position])
+            tab.text = resources.getString(Constants.TAB_TITLES[position])
+            tab.setIcon(Constants.TAB_ICONS[position])
             tab.icon?.colorFilter =
                 BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
                     Color.WHITE,
@@ -138,27 +138,27 @@ class MainActivity : AppCompatActivity() {
         }.attach()
     }
 
-    private fun isBluetoothPermissionGranted() : Boolean {
+    private fun isBluetoothPermissionNotGranted() : Boolean {
         return (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) && (ContextCompat.checkSelfPermission(this@MainActivity, Manifest.permission.BLUETOOTH_CONNECT) != PackageManager.PERMISSION_GRANTED)
+    }
+
+    private var launchActivityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) { enableBluetooth() }
     }
 
     @SuppressLint("MissingPermission")
     private fun enableBluetooth(){
-        if (!bluetoothAdapter.isEnabled) {
-            if (bluetoothAdapter.enable()){
-                Toast.makeText(this, "Turning on bluetooth", Toast.LENGTH_SHORT).show()
-            }
-        }
-        else {
-            if (isBluetoothPermissionGranted()) {
-                ActivityCompat.requestPermissions(this@MainActivity,
-                    arrayOf(Manifest.permission.BLUETOOTH_CONNECT), DataVar.bluetoothRequestPermit)
-            }
-            else{
+        if (isBluetoothPermissionNotGranted()) {
+            ActivityCompat.requestPermissions(this@MainActivity,
+                arrayOf(Manifest.permission.BLUETOOTH_CONNECT), Constants.bluetoothRequestPermit)
+        } else {
+            if (!bluetoothAdapter.isEnabled) {
+                val enableIntent = Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE)
+                launchActivityResult.launch(enableIntent)
+            } else {
                 if (bluetoothUtility.isConnect) {
                     bluetoothUtility.stop()
-                }
-                else {
+                } else {
                     bluetoothDialog()
                 }
             }
@@ -210,30 +210,30 @@ class MainActivity : AppCompatActivity() {
     private val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
         override fun handleMessage(msg: Message) {
             when(msg.what){
-                DataVar.messageStateChanged     -> when(msg.arg1){
-                    DataVar.stateNone       -> {
+                Constants.messageStateChanged     -> when(msg.arg1){
+                    Constants.stateNone       -> {
                         mainViewModel.setState(false)
                         setSubtitle(getString(R.string.stringNC))
                     }
-                    DataVar.stateListen     -> {
+                    Constants.stateListen     -> {
                         mainViewModel.setState(false)
                         setSubtitle(getString(R.string.stringNC))
                     }
-                    DataVar.stateConnecting -> {
+                    Constants.stateConnecting -> {
                         mainViewModel.setState(false)
                         setSubtitle(getString(R.string.stringCTI))
                     }
-                    DataVar.stateConnected  -> {
+                    Constants.stateConnected  -> {
                         mainViewModel.setState(true)
                         dialog.dismiss()
                         val newText = this@MainActivity.resources.getString(R.string.stringCTD, connectedDevice)
                         setSubtitle(newText)
                     }
                 }
-                DataVar.messageWrite            -> {
+                Constants.messageWrite            -> {
 //                    var buffer1 : ByteArray? = msg.obj as ByteArray
                 }
-                DataVar.messageRead             -> {
+                Constants.messageRead             -> {
                     val buffer = msg.obj as ByteArray
                     val inputBuffer = String(buffer, 0, msg.arg1)
                     dataString += inputBuffer
@@ -245,16 +245,16 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-                DataVar.messageDeviceName       -> {
-                    connectedDevice = msg.data.getString(DataVar.deviceName)!!
+                Constants.messageDeviceName       -> {
+                    connectedDevice = msg.data.getString(Constants.messageString)!!
                 }
-                DataVar.messageToast            -> {
-                    val msgToast = msg.data.getString(DataVar.toast)
+                Constants.messageToast            -> {
+                    val msgToast = msg.data.getString(Constants.messageString)
                     Toast.makeText(this@MainActivity, msgToast, Toast.LENGTH_SHORT).show()
                 }
-                DataVar.messageConnect            -> {
-                    val name = msg.data.getString(DataVar.deviceName)
-                    val mac = msg.data.getString(DataVar.deviceMac)
+                Constants.messageConnect          -> {
+                    val name = msg.data.getString(Constants.deviceName)
+                    val mac = msg.data.getString(Constants.deviceMac)
                     Toast.makeText(this@MainActivity, "Connecting to $name", Toast.LENGTH_SHORT).show()
                     bluetoothUtility.connect(bluetoothAdapter.getRemoteDevice(mac))
                 }

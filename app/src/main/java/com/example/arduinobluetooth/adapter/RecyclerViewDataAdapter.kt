@@ -10,7 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.arduinobluetooth.R
-import com.example.arduinobluetooth.data.DataVar
+import com.example.arduinobluetooth.data.Constants
 import com.example.arduinobluetooth.data.ItemData
 
 class RecyclerViewDataAdapter (
@@ -26,9 +26,9 @@ class RecyclerViewDataAdapter (
         val (title, data)       = itemData[position]
         holder.tvDataTitle.text = title
         holder.tvDataSend.text  = data
-        holder.btDataEdit.setOnClickListener    { actionDb(DataVar.dbEdit,      title, data) }
-        holder.btDataDelete.setOnClickListener  { actionDb(DataVar.dbDelete,    title, data) }
-        holder.btDataSend.setOnClickListener    { actionDb(DataVar.dbSend,      title, data) }
+        holder.btDataEdit.setOnClickListener    { actionDb(Constants.dbEdit,      title, data) }
+        holder.btDataDelete.setOnClickListener  { actionDb(Constants.dbDelete,    title, data) }
+        holder.btDataSend.setOnClickListener    { actionDb(Constants.dbSend,      title, data) }
     }
 
     override fun getItemCount() : Int = itemData.size
@@ -44,8 +44,8 @@ class RecyclerViewDataAdapter (
     private fun actionDb(address : Int, title : String?, data : String?){
         val message : Message                       = handler.obtainMessage(address)
         val bundle                                  = Bundle()
-        bundle.putString(DataVar.dbTitle, title)
-        bundle.putString(DataVar.dbData, data)
+        bundle.putString(Constants.dbTitle, title)
+        bundle.putString(Constants.dbData, data)
         message.data                                = bundle
         handler.sendMessage(message)
     }

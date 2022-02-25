@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
             val dataMessage = binding.edMessage.text.toString()
             if(dataMessage.isNotEmpty()) {
                 if (stateConnect){
+                    binding.edMessage.text!!.clear()
                     sendData(dataMessage)
                     mainViewModel.setSendData(dataMessage)
                 }
