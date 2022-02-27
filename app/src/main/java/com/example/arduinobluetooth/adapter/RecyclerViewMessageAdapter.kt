@@ -10,12 +10,10 @@ import com.example.arduinobluetooth.R
 import com.example.arduinobluetooth.model.MessageModel
 import java.text.DateFormat
 
-
 class RecyclerViewMessageAdapter(private val context: Context, var list: ArrayList<MessageModel>)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private inner class MessageInViewHolder(itemView: View)
-        : RecyclerView.ViewHolder(itemView) {
+    private inner class MessageInViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var messageTV   : TextView  = itemView.findViewById(R.id.tvMessageOther)
         var dateTV      : TextView  = itemView.findViewById(R.id.tvMessageOtherTime)
         fun bind(position : Int) {
@@ -25,8 +23,7 @@ class RecyclerViewMessageAdapter(private val context: Context, var list: ArrayLi
         }
     }
 
-    private inner class MessageOutViewHolder(itemView: View)
-        : RecyclerView.ViewHolder(itemView) {
+    private inner class MessageOutViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var messageTV   : TextView  = itemView.findViewById(R.id.tvMessageSelf)
         var dateTV      : TextView  = itemView.findViewById(R.id.tvMessageSelfTime)
         fun bind(position : Int) {
@@ -41,8 +38,7 @@ class RecyclerViewMessageAdapter(private val context: Context, var list: ArrayLi
             MessageInViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.message_other, parent, false)
             )
-        }
-        else {
+        } else {
             MessageOutViewHolder(
                 LayoutInflater.from(context).inflate(R.layout.message_self, parent, false)
             )

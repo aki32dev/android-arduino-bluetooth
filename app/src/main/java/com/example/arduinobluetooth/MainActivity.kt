@@ -20,8 +20,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.core.graphics.BlendModeColorFilterCompat
-import androidx.core.graphics.BlendModeCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -40,9 +38,8 @@ import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
-    lateinit var bluetoothUtility   : BluetoothUtility
-
-    private val bluetoothAdapter : BluetoothAdapter by lazy {
+    lateinit var bluetoothUtility       : BluetoothUtility
+    private val bluetoothAdapter        : BluetoothAdapter by lazy {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
     }
@@ -66,7 +63,6 @@ class MainActivity : AppCompatActivity() {
         bluetoothUtility = BluetoothUtility(handlerBluetooth)
 
         mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
-        //subscribe()
         sendSubscribe()
     }
 
@@ -129,12 +125,6 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager.adapter = pagerAdapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = resources.getString(Constants.TAB_TITLES[position])
-            tab.setIcon(Constants.TAB_ICONS[position])
-            tab.icon?.colorFilter =
-                BlendModeColorFilterCompat.createBlendModeColorFilterCompat(
-                    Color.WHITE,
-                    BlendModeCompat.SRC_ATOP
-                )
         }.attach()
     }
 
@@ -193,13 +183,6 @@ class MainActivity : AppCompatActivity() {
         rvPaired.adapter = adapter
     }
 
-//    private fun subscribe(){
-//        val dataCount = Observer<String?> { aString ->
-//            supportActionBar!!.subtitle = aString
-//        }
-//        mainViewModel.getData().observe(this, dataCount)
-//    }
-
     private fun sendSubscribe(){
         val dataCount = Observer<String?> { aString ->
             bluetoothUtility.write(aString.toByteArray())
@@ -238,7 +221,7 @@ class MainActivity : AppCompatActivity() {
                     val inputBuffer = String(buffer, 0, msg.arg1)
                     dataString += inputBuffer
                     CoroutineScope(Dispatchers.Default).launch {
-                        delay(450)
+                        delay(300)
                         if(dataString.isNotEmpty()){
                             mainViewModel.setReceiveData(dataString)
                             dataString = ""

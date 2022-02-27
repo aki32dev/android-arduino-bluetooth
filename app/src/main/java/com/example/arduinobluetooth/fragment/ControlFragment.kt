@@ -10,9 +10,9 @@ import com.example.arduinobluetooth.databinding.FragmentControlBinding
 import com.example.arduinobluetooth.model.MainViewModel
 
 class ControlFragment : Fragment() {
-    private lateinit var mainViewModel: MainViewModel
-    private var _binding: FragmentControlBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var mainViewModel  : MainViewModel
+    private var _binding                : FragmentControlBinding?   = null
+    private val binding get()                                       = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

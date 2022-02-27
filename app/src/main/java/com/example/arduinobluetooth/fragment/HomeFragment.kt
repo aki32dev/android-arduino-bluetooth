@@ -47,8 +47,7 @@ class HomeFragment : Fragment() {
                     sendData(dataMessage)
                     mainViewModel.setSendData(dataMessage)
                 }
-            }
-            else{ binding.edMessage.error = getString(R.string.stringDataNotValid) }
+            } else{ binding.edMessage.error = getString(R.string.stringDataNotValid) }
         }
 
         binding.btDeleteMessage.setOnClickListener {
