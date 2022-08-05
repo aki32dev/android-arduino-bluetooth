@@ -28,7 +28,7 @@ import com.example.arduinobluetooth.adapter.PagerAdapter
 import com.example.arduinobluetooth.adapter.RecyclerViewPairedAdapter
 import com.example.arduinobluetooth.data.Constants
 import com.example.arduinobluetooth.databinding.ActivityMainBinding
-import com.example.arduinobluetooth.model.MainViewModel
+import com.example.arduinobluetooth.model.SharedViewModel
 import com.example.arduinobluetooth.utility.BluetoothUtility
 import com.google.android.material.tabs.TabLayoutMediator
 import kotlinx.coroutines.CoroutineScope
@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private lateinit var binding        : ActivityMainBinding
-    private lateinit var mainViewModel  : MainViewModel
+    private lateinit var sharedViewModel: SharedViewModel
 
     private var dataString              : String                = ""
     private var connectedDevice         : String                = ""
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
         showTab()
         bluetoothUtility = BluetoothUtility(handlerBluetooth)
 
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        sharedViewModel = ViewModelProvider(this)[SharedViewModel::class.java]
         sendSubscribe()
     }
 
@@ -113,6 +113,11 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "Press back again to leave the app.", Toast.LENGTH_SHORT).show()
         }
         backPressedTime = System.currentTimeMillis()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        bluetoothUtility.stop()
     }
 
     private fun setSubtitle(title : CharSequence) {
@@ -187,7 +192,7 @@ class MainActivity : AppCompatActivity() {
         val dataCount = Observer<String?> { aString ->
             bluetoothUtility.write(aString.toByteArray())
         }
-        mainViewModel.getSendData().observe(this, dataCount)
+        sharedViewModel.getSendData().observe(this, dataCount)
     }
 
     private val handlerBluetooth = object:  Handler(Looper.getMainLooper()) {
@@ -195,27 +200,25 @@ class MainActivity : AppCompatActivity() {
             when(msg.what){
                 Constants.messageStateChanged     -> when(msg.arg1){
                     Constants.stateNone       -> {
-                        mainViewModel.setState(false)
+                        sharedViewModel.setState(false)
                         setSubtitle(getString(R.string.stringNC))
                     }
                     Constants.stateListen     -> {
-                        mainViewModel.setState(false)
+                        sharedViewModel.setState(false)
                         setSubtitle(getString(R.string.stringNC))
                     }
                     Constants.stateConnecting -> {
-                        mainViewModel.setState(false)
+                        sharedViewModel.setState(false)
                         setSubtitle(getString(R.string.stringCTI))
                     }
                     Constants.stateConnected  -> {
-                        mainViewModel.setState(true)
+                        sharedViewModel.setState(true)
                         dialog.dismiss()
                         val newText = this@MainActivity.resources.getString(R.string.stringCTD, connectedDevice)
                         setSubtitle(newText)
                     }
                 }
-                Constants.messageWrite            -> {
-//                    var buffer1 : ByteArray? = msg.obj as ByteArray
-                }
+                Constants.messageWrite            -> {  }
                 Constants.messageRead             -> {
                     val buffer = msg.obj as ByteArray
                     val inputBuffer = String(buffer, 0, msg.arg1)
@@ -223,7 +226,7 @@ class MainActivity : AppCompatActivity() {
                     CoroutineScope(Dispatchers.Default).launch {
                         delay(300)
                         if(dataString.isNotEmpty()){
-                            mainViewModel.setReceiveData(dataString)
+                            sharedViewModel.setReceiveData(dataString)
                             dataString = ""
                         }
                     }

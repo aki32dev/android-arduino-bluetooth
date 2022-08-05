@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-open class MainViewModel : ViewModel() {
+open class SharedViewModel : ViewModel() {
     private var stateConnect    = MutableLiveData<Boolean>()
     private var sendData        = MutableLiveData<String>()
     private var receiveData     = MutableLiveData<String>()

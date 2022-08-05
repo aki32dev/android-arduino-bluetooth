@@ -24,11 +24,11 @@ import com.example.arduinobluetooth.data.Constants
 import com.example.arduinobluetooth.data.ItemData
 import com.example.arduinobluetooth.database.LocalDB
 import com.example.arduinobluetooth.databinding.FragmentListBinding
-import com.example.arduinobluetooth.model.MainViewModel
+import com.example.arduinobluetooth.model.SharedViewModel
 import kotlin.collections.ArrayList
 
 class ListFragment : Fragment() {
-    private lateinit var mainViewModel  : MainViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private var _binding                : FragmentListBinding? = null
     private val binding get()                                           = _binding!!
 
@@ -46,10 +46,9 @@ class ListFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog          = Dialog(requireContext())
-        localDB         = LocalDB(requireContext())
-
-        mainViewModel   = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        dialog  = Dialog(requireContext())
+        localDB = LocalDB(requireContext())
+        sharedViewModel   = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
         list.addAll(readDB())
         showRecycler()
         binding.btAdd.setOnClickListener { addDialog("", "") }
@@ -157,7 +156,6 @@ class ListFragment : Fragment() {
                 }
                 Constants.dbDelete   -> {
                     val msgTitle    = msg.data.getString(Constants.dbTitle)
-                    //val msgData   = msg.data.getString(DataVar.dbData)
                     val stateDelete = localDB!!.deleteItem(msgTitle)
                     if(stateDelete){
                         Toast.makeText(context, "Command deleted", Toast.LENGTH_SHORT).show()
@@ -167,9 +165,8 @@ class ListFragment : Fragment() {
                     }
                 }
                 Constants.dbSend     -> {
-                    //val msgTitle  = msg.data.getString(DataVar.dbTitle)
                     val msgData     = msg.data.getString(Constants.dbData)
-                    mainViewModel.setSendData(msgData.toString())
+                    sharedViewModel.setSendData(msgData.toString())
                 }
             }
         }

@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.example.arduinobluetooth.databinding.FragmentControlBinding
-import com.example.arduinobluetooth.model.MainViewModel
+import com.example.arduinobluetooth.model.SharedViewModel
 
 class ControlFragment : Fragment() {
-    private lateinit var mainViewModel  : MainViewModel
+    private lateinit var sharedViewModel: SharedViewModel
     private var _binding                : FragmentControlBinding?   = null
     private val binding get()                                       = _binding!!
 
@@ -24,16 +24,17 @@ class ControlFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mainViewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
+        sharedViewModel = ViewModelProvider(requireActivity())[SharedViewModel::class.java]
+        with(binding){
+            btControlDown.setOnClickListener    { sharedViewModel.setSendData("D") }
+            btControlLeft.setOnClickListener    { sharedViewModel.setSendData("L") }
+            btControlUp.setOnClickListener      { sharedViewModel.setSendData("U") }
+            btControlRight.setOnClickListener   { sharedViewModel.setSendData("R") }
 
-        binding.btControlDown.setOnClickListener    { mainViewModel.setSendData("D") }
-        binding.btControlLeft.setOnClickListener    { mainViewModel.setSendData("L") }
-        binding.btControlUp.setOnClickListener      { mainViewModel.setSendData("U") }
-        binding.btControlRight.setOnClickListener   { mainViewModel.setSendData("R") }
-
-        binding.btControlOne.setOnClickListener     { mainViewModel.setSendData("1") }
-        binding.btControlTwo.setOnClickListener     { mainViewModel.setSendData("2") }
-        binding.btControlThree.setOnClickListener   { mainViewModel.setSendData("3") }
-        binding.btControlFour.setOnClickListener    { mainViewModel.setSendData("4") }
+            btControlOne.setOnClickListener     { sharedViewModel.setSendData("1") }
+            btControlTwo.setOnClickListener     { sharedViewModel.setSendData("2") }
+            btControlThree.setOnClickListener   { sharedViewModel.setSendData("3") }
+            btControlFour.setOnClickListener    { sharedViewModel.setSendData("4") }
+        }
     }
 }

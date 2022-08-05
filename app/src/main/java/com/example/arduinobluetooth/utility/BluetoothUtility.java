@@ -102,7 +102,7 @@ public class BluetoothUtility {
         public AcceptThread() {
             BluetoothServerSocket tmp = null;
             try {
-                tmp             = bluetoothAdapter.listenUsingRfcommWithServiceRecord(Constants.appName, appUUID);
+                tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord(Constants.appName, appUUID);
             } catch (IOException e) {
                 //Log.e("Accept->Constructor", e.toString());
             }
