@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    // FONT 8SP
+    <style name="small.regular" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">8sp</item>
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="small.bold" parent="small.regular">
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    // FONT 12SP
+    <style name="caption.regular" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="caption.bold" parent="caption.regular">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    // FONT 16SP
+    <style name="body.regular" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="body.bold" parent="body.regular">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    // FONT 20SP
+    <style name="big.regular" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="big.bold" parent="big.regular">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    // FONT 24SP
+    <style name="xbig.regular" parent="Widget.MaterialComponents.TextView">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/grey_900</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    <style name="xbig.bold" parent="xbig.regular">
+        <item name="android:textStyle">bold</item>
+        <item name="fontFamily">@font/poppins</item>
+    </style>
+
+    // Bottomsheet
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/dialog_rounded_top</item>
+        <item name="behavior_peekHeight">400dp</item>
+    </style>
+
+    <style name="BaseBottomSheetDialog" parent="@style/Theme.MaterialComponents.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="behavior_draggable">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+</resources>

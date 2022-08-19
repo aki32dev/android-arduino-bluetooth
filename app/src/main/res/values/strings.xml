@@ -1,7 +1,7 @@
 <resources>
     <!-- SYSTEM -->
     <string name="app_name">Arduino Bluetooth</string>
-    <string name="stringTvPaired">Paired Devices</string>
+    <string name="stringPaired">Paired Devices</string>
     <string name="stringBtConnect">Connect</string>
     <string name="stringNC">Not Connected</string>
     <string name="stringCTI">Connecting…</string>
@@ -12,23 +12,14 @@
     <string name="stringMenuSetting">Setting</string>
 
     <!-- TAB -->
-    <string name="stringTab1">Home</string>
-    <string name="stringTab2">Control</string>
-    <string name="stringTab3">List</string>
+    <string name="stringTabHome">Home</string>
+    <string name="stringTabDatabase">Database</string>
 
-    <!-- FRAGMENT 1 -->
-    <string name="frag1">Fragment 1</string>
+    <!-- FRAGMENT -->
     <string name="stringHint">Type Here</string>
-
-
-    <!-- FRAGMENT 2 -->
-    <string name="frag2">Fragment 2</string>
-
-
-    <!-- FRAGMENT 3 -->
     <string name="stringTvEmptyList">No Data List</string>
     <string name="stringBtAdd">Add</string>
-    <string name="stringTitleDialog">Add or Update Data</string>
+    <string name="stringTitleDialog">Add / Update / Delete Command</string>
     <string name="stringItemTitle">Title</string>
     <string name="stringItemData">Data</string>
     <string name="stringItemAction">Add/Update</string>

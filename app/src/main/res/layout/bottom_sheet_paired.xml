@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_rounded_top"
+    android:paddingTop="16dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@drawable/view_8"
+        android:layout_marginHorizontal="160dp"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/body.bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/stringPaired"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPaired"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layoutAnimation="@anim/layout_rv_animation_fall"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_paired"
+        tools:itemCount="8"/>
+
+</LinearLayout>
