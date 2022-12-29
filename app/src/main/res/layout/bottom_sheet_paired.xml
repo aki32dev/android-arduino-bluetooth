@@ -29,6 +29,7 @@
         android:layoutAnimation="@anim/layout_rv_animation_fall"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_paired"
-        tools:itemCount="8"/>
+        tools:itemCount="8"
+        tools:ignore="ContentDescription"/>
 
 </LinearLayout>

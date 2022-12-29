@@ -29,7 +29,7 @@
 
         <androidx.appcompat.widget.AppCompatEditText
             style="@style/caption.regular"
-            android:id="@+id/edMessage"
+            android:id="@+id/etMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="8dp"
