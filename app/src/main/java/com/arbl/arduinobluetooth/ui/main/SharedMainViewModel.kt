@@ -2,11 +2,6 @@ package com.arbl.arduinobluetooth.ui.main
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.arbl.arduinobluetooth.core.data.source.local.database.AppDatabase
-import com.arbl.arduinobluetooth.core.data.source.local.entity.CommandEntity
-import com.arbl.arduinobluetooth.core.data.source.repository.AppRepositoryImplementation
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 open class SharedMainViewModel(
     application: Application
