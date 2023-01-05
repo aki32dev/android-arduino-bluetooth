@@ -48,7 +48,7 @@ class DialogCommand(
     private fun initView() {
         with(binding) {
             etTitle.setText(parList.title)
-            etData.setText(parList.command)
+            etCommand.setText(parList.command)
         }
     }
 
@@ -56,10 +56,10 @@ class DialogCommand(
         with(binding) {
             btnAdd.setOnClickListener {
                 val title = etTitle.text.toString().trim()
-                val command = etData.text.toString().trim()
+                val command = etCommand.text.toString().trim()
                 when {
                     TextUtils.isEmpty(title) -> etTitle.error = "Please fill in the title"
-                    TextUtils.isEmpty(command) -> etData.error = "Please fill in the command"
+                    TextUtils.isEmpty(command) -> etCommand.error = "Please fill in the command"
                     else -> {
                         if (parAdd) {
                             mainViewModel.insertCommand(

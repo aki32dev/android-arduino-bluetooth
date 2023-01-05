@@ -50,11 +50,11 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="20dp"
-            android:text="@string/stringItemData"/>
+            android:text="@string/stringItemCommand"/>
 
         <androidx.appcompat.widget.AppCompatEditText
             style="@style/caption.regular"
-            android:id="@+id/etData"
+            android:id="@+id/etCommand"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:background="@drawable/edit_background"

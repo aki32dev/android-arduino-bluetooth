@@ -39,18 +39,18 @@ class ListAdapter(
     inner class ContactViewHolder(private val binding: ItemListBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(model: ListModel) {
             with(binding) {
-                tvDataTitle.text = model.title
-                tvDataSend.text = model.command
+                tvCommandTitle.text = model.title
+                tvCommandSend.text = model.command
 
-                btnDataEdit.setOnClickListener {
+                btnCommandEdit.setOnClickListener {
                     onEditClick?.invoke(model)
                 }
 
-                btnDataDelete.setOnClickListener {
+                btnCommandDelete.setOnClickListener {
                     onDeleteClick?.invoke(model)
                 }
 
-                btnDataSend.setOnClickListener {
+                btnCommandSend.setOnClickListener {
                     onSendClick?.invoke(model)
                 }
             }

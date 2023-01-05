@@ -18,7 +18,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/body.bold"
-            android:id="@+id/tvDataTitle"
+            android:id="@+id/tvCommandTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
@@ -28,15 +28,15 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/caption.regular"
-            android:id="@+id/tvDataSend"
+            android:id="@+id/tvCommandSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/tvDataTitle"
+            app:layout_constraintTop_toBottomOf="@id/tvCommandTitle"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="#REQ*" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btnDataSend"
+            android:id="@+id/btnCommandSend"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
@@ -46,23 +46,23 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btnDataDelete"
+            android:id="@+id/btnCommandDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_delete"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnDataSend"
+            app:layout_constraintEnd_toStartOf="@+id/btnCommandSend"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/btnDataEdit"
+            android:id="@+id/btnCommandEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="20dp"
             android:src="@drawable/ic_edit"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/btnDataDelete"
+            app:layout_constraintEnd_toStartOf="@+id/btnCommandDelete"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

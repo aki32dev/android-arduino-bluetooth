@@ -21,7 +21,7 @@
     <string name="stringBtAdd">Add</string>
     <string name="stringTitleDialog">Add / Update / Delete Command</string>
     <string name="stringItemTitle">Title</string>
-    <string name="stringItemData">Data</string>
+    <string name="stringItemCommand">Command</string>
     <string name="stringItemAction">Add/Update</string>
     <string name="stringItemDelete">Delete</string>
     <string name="stringTitleNotValid">Type Title</string>
