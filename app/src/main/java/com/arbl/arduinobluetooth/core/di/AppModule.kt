@@ -39,7 +39,6 @@ val viewModelModule = module {
 
 val repositoryModule = module {
     single { LocalDataSource(get()) }
-
     single<AppRepository> {
         AppRepositoryImplementation(
             get()
