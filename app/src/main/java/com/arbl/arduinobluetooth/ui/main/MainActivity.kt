@@ -40,16 +40,13 @@ class MainActivity : AppCompatActivity() {
     private var _binding: ActivityMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var sharedMainViewModel: SharedMainViewModel
-
     private lateinit var bluetoothUtils : BluetoothUtils
     private val bluetoothAdapter : BluetoothAdapter by lazy {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
     }
-
     private var dataString              : String                = ""
     private var connectedDevice         : String                = ""
-
     private var backPressedTime         : Long                  = 0
 
     override fun onCreate(savedInstanceState: Bundle?){

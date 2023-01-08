@@ -10,7 +10,6 @@ import kotlinx.coroutines.launch
 class MainViewModel(
     private val mainUseCase: MainUseCase
 ) : BaseViewModel() {
-
     val commandliveData = mainUseCase.getAllCommand()
 
     fun insertCommand(command: CommandModel) {
@@ -24,5 +23,4 @@ class MainViewModel(
     fun deleteCommand(command: CommandModel) {
         viewModelScope.launch(Dispatchers.IO) { mainUseCase.deleteCommand(command) }
     }
-
 }

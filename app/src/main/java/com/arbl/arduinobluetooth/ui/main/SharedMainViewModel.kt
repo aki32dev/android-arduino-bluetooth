@@ -6,7 +6,6 @@ import androidx.lifecycle.*
 open class SharedMainViewModel(
     application: Application
 ) : AndroidViewModel(application) {
-
     var stateConnect = MutableLiveData<Boolean>()
     open fun setState(parValue: Boolean){ stateConnect.value = parValue }
 
@@ -22,5 +21,4 @@ open class SharedMainViewModel(
 
     val macData = MutableLiveData<String>()
     fun setMacData(parValue : String) { macData.value = parValue }
-
 }

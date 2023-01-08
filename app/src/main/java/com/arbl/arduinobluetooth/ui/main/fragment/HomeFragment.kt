@@ -52,7 +52,9 @@ class HomeFragment : BaseFragment() {
                         sendData(dataMessage)
                         sharedMainViewModel.setSendData(dataMessage)
                     }
-                } else{ binding.etMessage.error = getString(R.string.stringDataNotValid) }
+                } else{
+                    binding.etMessage.error = getString(R.string.stringDataNotValid)
+                }
             }
 
             btnDelete.setOnClickListener {
