@@ -34,8 +34,8 @@ android {
         applicationId "com.arbl.arduinobluetooth"
         minSdk 21
         targetSdk 32
-        versionCode 5
-        versionName '1.2'
+        versionCode 6
+        versionName '1.3'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         signingConfig signingConfigs.release
@@ -43,8 +43,6 @@ android {
 
     buildTypes {
         getByName("release") {
-            minifyEnabled = true
-            shrinkResources = true
             debuggable = false
             manifestPlaceholders = [appName: "Arduino Bluetooth"]
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
