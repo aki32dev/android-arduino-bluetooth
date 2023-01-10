@@ -14,7 +14,6 @@ import com.arbl.arduinobluetooth.core.domain.model.MessageModel
 class HomeFragment : BaseFragment() {
     private lateinit var sharedMainViewModel: SharedMainViewModel
     private lateinit var binding : FragmentHomeBinding
-
     private val messagesList = ArrayList<MessageModel>()
     private var stateConnect : Boolean = false
 
