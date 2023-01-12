@@ -9,7 +9,6 @@ import com.arbl.arduinobluetooth.core.data.source.local.entity.CommandEntity
 @Database(entities = [CommandEntity::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun appDao(): AppDao
-
     companion object {
         @Volatile
         private var INSTANCE: AppDatabase? = null
