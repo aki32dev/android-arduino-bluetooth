@@ -7,7 +7,6 @@ import androidx.room.PrimaryKey
 data class CommandEntity(
     @PrimaryKey(autoGenerate = true)
     val id: Int,
-
     val title: String,
     val command: String
 )
