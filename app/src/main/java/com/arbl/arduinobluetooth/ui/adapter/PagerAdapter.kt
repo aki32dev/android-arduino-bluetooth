@@ -6,7 +6,9 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.arbl.arduinobluetooth.ui.main.fragment.HomeFragment
 import com.arbl.arduinobluetooth.ui.main.fragment.ListFragment
 
-class PagerAdapter(activity : AppCompatActivity) : FragmentStateAdapter(activity) {
+class PagerAdapter(
+    activity : AppCompatActivity
+) : FragmentStateAdapter(activity) {
     override fun getItemCount(): Int { return 2 }
 
     override fun createFragment(position: Int): Fragment {

@@ -10,7 +10,6 @@ import com.arbl.arduinobluetooth.databinding.ItemPairedBinding
 class PairedAdapter(
     private val onItemClick : ((PairedModel) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     private val items = mutableListOf<PairedModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

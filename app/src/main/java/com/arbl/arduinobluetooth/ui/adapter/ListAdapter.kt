@@ -12,7 +12,6 @@ class ListAdapter(
     private val onDeleteClick : ((ListModel) -> Unit)? = null,
     private val onSendClick : ((ListModel) -> Unit)? = null
 ) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
-
     private val items = mutableListOf<ListModel>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {

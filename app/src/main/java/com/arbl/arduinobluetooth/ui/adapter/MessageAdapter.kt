@@ -10,8 +10,10 @@ import com.arbl.arduinobluetooth.R
 import com.arbl.arduinobluetooth.core.domain.model.MessageModel
 import java.text.DateFormat
 
-class MessageAdapter(private val context: Context, var list: ArrayList<MessageModel>)
-    : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessageAdapter(
+    private val context: Context,
+    var list: ArrayList<MessageModel>
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private inner class MessageInViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var messageTV   : TextView = itemView.findViewById(R.id.tvMessageIn)
