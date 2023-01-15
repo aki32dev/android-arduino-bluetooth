@@ -4,7 +4,6 @@ import com.arbl.arduinobluetooth.core.data.source.local.entity.CommandEntity
 import com.arbl.arduinobluetooth.core.domain.model.CommandModel
 
 object DataMapper {
-
     fun mapCommandDomainToEntity(input: CommandModel): CommandEntity =
         input.let {
             CommandEntity(
@@ -13,5 +12,4 @@ object DataMapper {
                 command = it.command
             )
         }
-
 }
