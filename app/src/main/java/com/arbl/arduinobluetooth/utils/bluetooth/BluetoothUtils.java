@@ -19,15 +19,15 @@ public class BluetoothUtils {
     private final Handler handler;
     private final BluetoothAdapter bluetoothAdapter;
 
-    private ConnectThread       connectThread;
-    private AcceptThread        acceptThread;
-    private ConnectedThread     connectedThread;
+    private ConnectThread connectThread;
+    private AcceptThread acceptThread;
+    private ConnectedThread connectedThread;
 
-    private int                 state;
-    private boolean             term                = false;
-    public boolean              isConnect           = false;
+    private int state;
+    private boolean term = false;
+    public boolean isConnect = false;
 
-    private final UUID          appUUID             = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+    private final UUID appUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     public BluetoothUtils(Handler handler){
         this.handler        = handler;
