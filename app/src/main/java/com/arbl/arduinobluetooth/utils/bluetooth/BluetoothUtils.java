@@ -30,9 +30,9 @@ public class BluetoothUtils {
     private final UUID appUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
     public BluetoothUtils(Handler handler){
-        this.handler        = handler;
-        state               = Constants.stateNone;
-        bluetoothAdapter    = BluetoothAdapter.getDefaultAdapter();
+        this.handler = handler;
+        state = Constants.stateNone;
+        bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     }
 
     public synchronized void setState(int state) {
@@ -45,17 +45,14 @@ public class BluetoothUtils {
             connectThread.cancel();
             connectThread = null;
         }
-
         if (acceptThread == null) {
             acceptThread = new AcceptThread();
             acceptThread.start();
         }
-
         if (connectedThread != null) {
             connectedThread.cancel();
             connectedThread = null;
         }
-
         setState(Constants.stateListen);
     }
 
@@ -68,12 +65,10 @@ public class BluetoothUtils {
             acceptThread.cancel();
             acceptThread = null;
         }
-
         if (connectedThread != null) {
             connectedThread.cancel();
             connectedThread = null;
         }
-
         isConnect = false;
         setState(Constants.stateNone);
     }
@@ -83,16 +78,13 @@ public class BluetoothUtils {
             connectThread.cancel();
             connectThread = null;
         }
-
         connectThread   = new ConnectThread(device);
         connectThread.start();
         term            = true;
-
         if (connectedThread != null) {
             connectedThread.cancel();
             connectedThread = null;
         }
-
         setState(Constants.stateConnecting);
     }
 
@@ -103,10 +95,9 @@ public class BluetoothUtils {
             BluetoothServerSocket tmp = null;
             try {
                 tmp = bluetoothAdapter.listenUsingRfcommWithServiceRecord(Constants.appName, appUUID);
-            } catch (IOException e) {
-                //Log.e("Accept->Constructor", e.toString());
-            }
+            } catch (IOException ignored) {
 
+            }
             serverSocket = tmp;
         }
 
@@ -115,14 +106,12 @@ public class BluetoothUtils {
             try {
                 socket = serverSocket.accept();
             } catch (IOException e) {
-                //Log.e("Accept->Run", e.toString());
                 try {
                     serverSocket.close();
-                } catch (IOException e1) {
-                    //Log.e("Accept->Close", e.toString());
+                } catch (IOException ignored) {
+
                 }
             }
-
             if (socket != null) {
                 switch (state) {
                     case Constants.stateListen:
@@ -133,8 +122,7 @@ public class BluetoothUtils {
                     case Constants.stateConnected:
                         try {
                             socket.close();
-                        } catch (IOException e) {
-                            //Log.e("Accept->CloseSocket", e.toString());
+                        } catch (IOException ignored) {
                         }
                         break;
                 }
@@ -144,8 +132,7 @@ public class BluetoothUtils {
         public void cancel() {
             try {
                 serverSocket.close();
-            } catch (IOException e) {
-                //Log.e("Accept->CloseServer", e.toString());
+            } catch (IOException ignored) {
             }
         }
     }
@@ -160,8 +147,7 @@ public class BluetoothUtils {
             BluetoothSocket tmp = null;
             try {
                 tmp = device.createRfcommSocketToServiceRecord(appUUID);
-            } catch (IOException e) {
-                //Log.e("Connect->Constructor", e.toString());
+            } catch (IOException ignored) {
             }
 
             socket = tmp;
@@ -172,28 +158,23 @@ public class BluetoothUtils {
             try {
                 socket.connect();
             } catch (IOException e) {
-                //Log.e("Connect->Run", e.toString());
                 try {
                     socket.close();
-                } catch (IOException e1) {
-                    //Log.e("Connect->CloseSocket", e.toString());
+                } catch (IOException ignored) {
                 }
                 connectionFailed();
                 return;
             }
-
             synchronized (BluetoothUtils.this) {
                 connectThread = null;
             }
-
             connected(socket, device);
         }
 
         public void cancel() {
             try {
                 socket.close();
-            } catch (IOException e) {
-                //Log.e("Connect->Cancel", e.toString());
+            } catch (IOException ignored) {
             }
         }
     }
@@ -207,14 +188,12 @@ public class BluetoothUtils {
             this.socket         = socket;
             InputStream tmpIn   = null;
             OutputStream tmpOut = null;
-
             isConnect           = true;
-
             try {
                 tmpIn   = socket.getInputStream();
                 tmpOut  = socket.getOutputStream();
-            } catch (IOException ignored) { }
-
+            } catch (IOException ignored) {
+            }
             inputStream     = tmpIn;
             outputStream    = tmpOut;
         }
@@ -222,7 +201,6 @@ public class BluetoothUtils {
         public void run() {
             byte[] buffer = new byte[1024];
             int bytes;
-
             while (term){
                 try {
                     bytes = inputStream.read(buffer);
@@ -253,26 +231,24 @@ public class BluetoothUtils {
     }
 
     private void connectionLost() {
-        Message message     = handler.obtainMessage(Constants.messageToast);
-        Bundle bundle       = new Bundle();
+        Message message = handler.obtainMessage(Constants.messageToast);
+        Bundle bundle = new Bundle();
         bundle.putString(Constants.messageString, "Disconnect");
         message.setData(bundle);
         handler.sendMessage(message);
-        term                = false;
-        isConnect           = false;
-
+        term = false;
+        isConnect = false;
         BluetoothUtils.this.start();
     }
 
     private synchronized void connectionFailed() {
-        Message message     = handler.obtainMessage(Constants.messageToast);
-        Bundle bundle       = new Bundle();
+        Message message = handler.obtainMessage(Constants.messageToast);
+        Bundle bundle = new Bundle();
         bundle.putString(Constants.messageString, "Unable to connect with device");
         message.setData(bundle);
         handler.sendMessage(message);
-        term                = false;
-        isConnect           = false;
-
+        term = false;
+        isConnect = false;
         BluetoothUtils.this.start();
     }
 
@@ -282,35 +258,28 @@ public class BluetoothUtils {
             connectThread.cancel();
             connectThread = null;
         }
-
         if (connectedThread != null) {
             connectedThread.cancel();
             connectedThread = null;
         }
-
-        connectedThread     = new ConnectedThread(socket);
+        connectedThread = new ConnectedThread(socket);
         connectedThread.start();
-
-        Message message     = handler.obtainMessage(Constants.messageDeviceName);
-        Bundle bundle       = new Bundle();
+        Message message = handler.obtainMessage(Constants.messageDeviceName);
+        Bundle bundle = new Bundle();
         bundle.putString(Constants.messageString, device.getName());
         message.setData(bundle);
         handler.sendMessage(message);
-
         setState(Constants.stateConnected);
     }
 
     public void write(byte[] buffer) {
         ConnectedThread connThread;
-
         synchronized (this) {
             if (state != Constants.stateConnected) {
                 return;
             }
             connThread = connectedThread;
         }
-
         connThread.write(buffer);
     }
-
 }
