@@ -19,5 +19,4 @@ class PagerAdapter(
         }
         return fragment as Fragment
     }
-
 }
