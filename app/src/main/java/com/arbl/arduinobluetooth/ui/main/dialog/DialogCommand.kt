@@ -22,7 +22,7 @@ class DialogCommand(
     private val mainViewModel: MainViewModel by viewModel()
 
     companion object {
-        const val TAG = "DialogList"
+        const val TAG = "DialogCommand"
     }
 
     override fun onCreateView(
