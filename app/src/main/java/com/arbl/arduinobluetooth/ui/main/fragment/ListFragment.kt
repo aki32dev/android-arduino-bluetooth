@@ -67,7 +67,6 @@ class ListFragment : BaseFragment() {
                 }
             }
         )
-
         with(binding) {
             rvData.adapter = listAdapter
         }
