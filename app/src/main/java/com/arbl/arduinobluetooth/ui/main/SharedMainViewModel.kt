@@ -9,10 +9,10 @@ open class SharedMainViewModel(
     var stateConnect = MutableLiveData<Boolean>()
     open fun setState(parValue: Boolean){ stateConnect.value = parValue }
 
-    var sendData     = MutableLiveData<String>()
+    var sendData = MutableLiveData<String>()
     open fun setSendData(parValue : String){ sendData.value = parValue }
 
-    private var receiveData  = MutableLiveData<String>()
+    private var receiveData = MutableLiveData<String>()
     open fun setReceiveData(parValue : String){ receiveData.postValue(parValue) }
     open fun getReceiveData(): LiveData<String> { return receiveData }
 
