@@ -216,6 +216,7 @@ class MainActivity : AppCompatActivity() {
                         binding.appBarLayout.tvSubtitle.text = newText
                     }
                 }
+
                 Constants.messageRead          -> {
                     val buffer = msg.obj as ByteArray
                     val inputBuffer = String(buffer, 0, msg.arg1)
@@ -228,9 +229,11 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
+
                 Constants.messageDeviceName       -> {
                     connectedDevice = msg.data.getString(Constants.messageString)!!
                 }
+
                 Constants.messageToast            -> {
                     val msgToast = msg.data.getString(Constants.messageString)
                     Toast.makeText(this@MainActivity, msgToast, Toast.LENGTH_SHORT).show()
