@@ -198,11 +198,11 @@ class MainActivity : AppCompatActivity() {
         override fun handleMessage(msg: Message) {
             when(msg.what){
                 Constants.messageStateChanged -> when(msg.arg1){
-                    Constants.stateNone       -> {
+                    Constants.stateNone -> {
                         sharedMainViewModel.setState(false)
                         binding.appBarLayout.tvSubtitle.text = getString(R.string.stringNC)
                     }
-                    Constants.stateListen     -> {
+                    Constants.stateListen -> {
                         sharedMainViewModel.setState(false)
                         binding.appBarLayout.tvSubtitle.text = getString(R.string.stringNC)
                     }
