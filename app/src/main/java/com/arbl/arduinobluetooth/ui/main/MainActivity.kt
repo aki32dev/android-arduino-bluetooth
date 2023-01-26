@@ -210,14 +210,14 @@ class MainActivity : AppCompatActivity() {
                         sharedMainViewModel.setState(false)
                         binding.appBarLayout.tvSubtitle.text = getString(R.string.stringCTI)
                     }
-                    Constants.stateConnected  -> {
+                    Constants.stateConnected -> {
                         sharedMainViewModel.setState(true)
                         val newText = this@MainActivity.resources.getString(R.string.stringCTD, connectedDevice)
                         binding.appBarLayout.tvSubtitle.text = newText
                     }
                 }
 
-                Constants.messageRead          -> {
+                Constants.messageRead -> {
                     val buffer = msg.obj as ByteArray
                     val inputBuffer = String(buffer, 0, msg.arg1)
                     dataString += inputBuffer
@@ -230,11 +230,11 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
 
-                Constants.messageDeviceName       -> {
+                Constants.messageDeviceName -> {
                     connectedDevice = msg.data.getString(Constants.messageString)!!
                 }
 
-                Constants.messageToast            -> {
+                Constants.messageToast -> {
                     val msgToast = msg.data.getString(Constants.messageString)
                     Toast.makeText(this@MainActivity, msgToast, Toast.LENGTH_SHORT).show()
                 }
