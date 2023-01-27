@@ -45,7 +45,7 @@ class MainActivity : AppCompatActivity() {
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
         bluetoothManager.adapter
     }
-    private var dataString              : String                = ""
+    private var dataString : String = ""
     private var connectedDevice         : String                = ""
     private var backPressedTime         : Long                  = 0
 
