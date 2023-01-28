@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         bluetoothManager.adapter
     }
     private var dataString : String = ""
-    private var connectedDevice         : String                = ""
+    private var connectedDevice : String = ""
     private var backPressedTime         : Long                  = 0
 
     override fun onCreate(savedInstanceState: Bundle?){
