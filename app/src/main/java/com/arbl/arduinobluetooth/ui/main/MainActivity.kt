@@ -202,14 +202,17 @@ class MainActivity : AppCompatActivity() {
                         sharedMainViewModel.setState(false)
                         binding.appBarLayout.tvSubtitle.text = getString(R.string.stringNC)
                     }
+
                     Constants.stateListen -> {
                         sharedMainViewModel.setState(false)
                         binding.appBarLayout.tvSubtitle.text = getString(R.string.stringNC)
                     }
+
                     Constants.stateConnecting -> {
                         sharedMainViewModel.setState(false)
                         binding.appBarLayout.tvSubtitle.text = getString(R.string.stringCTI)
                     }
+
                     Constants.stateConnected -> {
                         sharedMainViewModel.setState(true)
                         val newText = this@MainActivity.resources.getString(R.string.stringCTD, connectedDevice)
@@ -241,5 +244,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }
