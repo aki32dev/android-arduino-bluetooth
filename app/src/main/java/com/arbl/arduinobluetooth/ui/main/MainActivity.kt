@@ -224,7 +224,7 @@ class MainActivity : AppCompatActivity() {
                     val inputBuffer = String(buffer, 0, msg.arg1)
                     dataString += inputBuffer
                     CoroutineScope(Dispatchers.Default).launch {
-                        delay(296)
+                        delay(260)
                         if(dataString.isNotEmpty()){
                             sharedMainViewModel.setReceiveData(dataString)
                             dataString = ""
