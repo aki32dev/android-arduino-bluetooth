@@ -91,8 +91,8 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/b0e6a81381b8ec9f28eba096a2af1872/transformed/jetified-annotations-16.0.1.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/8bc1f7e5a4d878f67bc39cb500748a8c/transformed/jetified-annotation-experimental-1.1.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/617f0ecc1a550916ee6cf465072c720e/transformed/jetified-startup-runtime-1.0.0-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/727506511cc6466f6180f41e1f178a83/transformed/jetified-play-services-tasks-16.0.1-api.jar</arg>
-                <arg>$USER_HOME$/.gradle/caches/transforms-3/1d8619ac42631043cbf2b796e29295b9/transformed/jetified-play-services-basement-16.0.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/9ea9bbaa72a2f71b92ffd296c20d6395/transformed/jetified-play-services-tasks-16.0.1-api.jar</arg>
+                <arg>$USER_HOME$/.gradle/caches/transforms-3/00966daa59b0bf29ae6e1767875151da/transformed/jetified-play-services-basement-16.0.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/c0b9754534034420134e381f1ed2a37b/transformed/jetified-Android-SpinKit-1.4.0-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/de12108fc9805ddbde7fc014b1f436f3/transformed/jetified-kotpref-2.13.1-api.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/ae6f096551a8dd3b25daf4cbcb692715/transformed/constraintlayout-2.1.3-api.jar</arg>
