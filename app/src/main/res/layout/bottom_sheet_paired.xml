@@ -6,26 +6,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@drawable/dialog_rounded_top"
-    android:paddingTop="16dp">
+    android:paddingTop="@dimen/_12sdp">
 
     <View
-        android:layout_width="match_parent"
-        android:layout_height="5dp"
-        android:background="@drawable/view_8"
-        android:layout_marginHorizontal="160dp"/>
+        android:layout_width="@dimen/_60sdp"
+        android:layout_height="@dimen/_4sdp"
+        android:layout_gravity="center"
+        android:background="@drawable/view_8"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         style="@style/body.bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="@dimen/_12sdp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:text="@string/stringPaired"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPaired"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="@dimen/_240sdp"
         android:layoutAnimation="@anim/layout_rv_animation_fall"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_paired"

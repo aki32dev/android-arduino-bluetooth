@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
-    android:layout_marginEnd="5dp"
-    android:layout_marginStart="30dp">
+    android:layout_marginTop="@dimen/_4sdp"
+    android:layout_marginEnd="@dimen/_4sdp"
+    android:layout_marginStart="@dimen/_27sdp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/bg_sender_rounded"
-        android:padding="2dp"
+        android:padding="@dimen/_2sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -22,26 +22,25 @@
             style="@style/caption.regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="2dp"
-            android:paddingStart="5dp"
-            android:paddingTop="5dp"
-            android:paddingEnd="70dp"
-            android:paddingBottom="5dp"
+            android:layout_margin="@dimen/_4sdp"
+            android:paddingHorizontal="@dimen/_8sdp"
+            android:paddingEnd="@dimen/_40sdp"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Hello!" />
+            tools:text="Hello!"
+            tools:ignore="RtlSymmetry" />
 
         <androidx.appcompat.widget.AppCompatTextView
             style="@style/small.regular"
             android:id="@+id/tvMessageOutTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="1dp"
+            android:layout_marginEnd="@dimen/_6sdp"
+            android:layout_marginBottom="@dimen/_1sdp"
             android:textColor="@color/white"
-            android:textSize="10sp"
+            android:textSize="@dimen/_6sdp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:ignore="SmallSp"

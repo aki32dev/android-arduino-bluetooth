@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingVertical="12dp"
-    android:paddingHorizontal="16dp">
+    android:paddingVertical="@dimen/_10sdp"
+    android:paddingHorizontal="@dimen/_12sdp">
 
     <androidx.appcompat.widget.AppCompatTextView
         style="@style/caption.bold"
@@ -30,7 +30,8 @@
         style="@style/caption.bold"
         android:id="@+id/btnConnect"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="@dimen/_30sdp"
+        android:paddingHorizontal="@dimen/_12sdp"
         android:text="@string/stringBtConnect"
         android:textColor="@color/white"
         android:background="@drawable/bg_button"

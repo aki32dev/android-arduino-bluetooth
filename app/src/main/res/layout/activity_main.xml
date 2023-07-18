@@ -19,7 +19,7 @@
         android:background="?attr/colorPrimary"
         app:tabIndicatorAnimationMode="elastic"
         app:tabIndicatorColor="@color/white"
-        app:tabIndicatorHeight="3dp"
+        app:tabIndicatorHeight="@dimen/_3sdp"
         app:tabTextColor="@color/white" />
 
     <androidx.viewpager2.widget.ViewPager2
