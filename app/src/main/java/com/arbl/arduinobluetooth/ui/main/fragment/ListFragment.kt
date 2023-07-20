@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
+import com.arbl.arduinobluetooth.R
 import com.arbl.arduinobluetooth.core.base.fragment.BaseFragment
 import com.arbl.arduinobluetooth.ui.adapter.ListAdapter
 import com.arbl.arduinobluetooth.core.domain.model.ListModel
@@ -63,7 +64,7 @@ class ListFragment : BaseFragment() {
             onSendClick = { model ->
                 if (stateConnect){
                     sharedMainViewModel.setSendData(model.command)
-                    Toast.makeText(requireActivity(), "Send successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireActivity(), getString(R.string.stringSendSuccessfully), Toast.LENGTH_SHORT).show()
                 }
             }
         )

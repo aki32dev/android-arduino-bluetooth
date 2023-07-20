@@ -27,4 +27,7 @@
     <string name="stringTitleNotValid">Type Title</string>
     <string name="stringDataNotValid">Type Data</string>
 
+    <!-- GENERAL -->
+    <string name="stringSendSuccessfully">Send successfully</string>
+
 </resources>
